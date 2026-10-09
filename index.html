@@ -151,6 +151,18 @@
   .liste-garanties h3 { font-size: 16px; margin-bottom: 2px; }
   .liste-garanties p { color: var(--gris); font-size: 15px; }
 
+  /* Bandeau cookies */
+  .cookies { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 50; max-width: 720px; margin: 0 auto; background: var(--blanc); color: var(--texte); border-radius: var(--rayon); box-shadow: 0 16px 48px rgba(0,0,0,.28); padding: 20px 22px; display: flex; gap: 18px; align-items: center; }
+  .cookies[hidden] { display: none; }
+  .cookies p { font-size: 14px; color: var(--gris); flex: 1; }
+  .cookies p b { color: var(--texte); }
+  .cookies a { color: var(--tuile); }
+  .cookies .choix { display: flex; gap: 10px; flex: none; }
+  .cookies button { font: inherit; font-weight: 700; font-size: 15px; border-radius: 10px; padding: 12px 18px; cursor: pointer; min-width: 112px; }
+  .cookies .refuser { background: var(--blanc); color: var(--ardoise); border: 2px solid var(--ardoise); }
+  .cookies .accepter { background: var(--ardoise); color: var(--blanc); border: 2px solid var(--ardoise); }
+  @media (max-width: 640px) { .cookies { flex-direction: column; align-items: stretch; gap: 14px; } .cookies .choix button { flex: 1; } }
+
   footer { color: #9aa5ae; font-size: 14px; padding: 32px 0; }
   footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
   footer a { text-decoration: none; } footer a:hover { color: var(--blanc); }
@@ -405,11 +417,75 @@
 <footer>
   <div class="wrap">
     <span>© 2026 Couvreur Essonne · Service gratuit de mise en relation avec des couvreurs du 91, édité par Sitaly</span>
-    <span><a href="mentions-legales.html">Mentions légales</a> · <a href="politique-confidentialite.html">Politique de confidentialité</a></span>
+    <span><a href="mentions-legales.html">Mentions légales</a> · <a href="politique-confidentialite.html">Politique de confidentialité</a> · <a href="#" id="gererCookies">Gérer les cookies</a></span>
   </div>
 </footer>
 
+<div class="cookies" id="cookies" role="dialog" aria-live="polite" aria-label="Cookies" hidden>
+  <p><b>Cookies de mesure publicitaire.</b> Avec votre accord, nous utilisons des cookies Google Ads pour savoir quelles annonces amènent des demandes de devis. Rien n'est déposé si vous refusez. <a href="politique-confidentialite.html#cookies">En savoir plus</a></p>
+  <div class="choix">
+    <button type="button" class="refuser" id="cookiesRefuser">Refuser</button>
+    <button type="button" class="accepter" id="cookiesAccepter">Accepter</button>
+  </div>
+</div>
+
 <script>
+  /* Consentement cookies (CNIL) + balise Google Ads.
+     Mode « basique » : la balise gtag.js n'est chargée qu'après un clic sur
+     « Accepter ». Le choix est gardé 13 mois (accord) ou 6 mois (refus), puis
+     redemandé. « Gérer les cookies » dans le pied de page rouvre le bandeau. */
+  const GOOGLE_ADS_ID = 'AW-18503313003';
+  const CONVERSION_DEVIS = 'AW-18503313003/wjYSCJq17pYdEOvMiPdE';
+  const CLE_CONSENTEMENT = 'cookieConsent';
+  const MOIS = 30 * 24 * 3600 * 1000;
+  let baliseChargee = false;
+
+  const lireChoix = () => {
+    try {
+      const v = JSON.parse(localStorage.getItem(CLE_CONSENTEMENT) || 'null');
+      if (!v || !v.choix || !v.date) return null;
+      return Date.now() - v.date < (v.choix === 'accept' ? 13 : 6) * MOIS ? v.choix : null;
+    } catch (e) { return null; }
+  };
+  const ecrireChoix = choix => { try { localStorage.setItem(CLE_CONSENTEMENT, JSON.stringify({ choix, date: Date.now() })); } catch (e) {} };
+
+  const chargerBalise = () => {
+    if (baliseChargee) return;
+    baliseChargee = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag('consent', 'default', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'denied', analytics_storage: 'denied' });
+    gtag('js', new Date());
+    gtag('config', GOOGLE_ADS_ID);
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GOOGLE_ADS_ID;
+    document.head.appendChild(s);
+  };
+  const effacerCookiesGoogle = () => {
+    document.cookie.split(';').forEach(c => {
+      const nom = c.split('=')[0].trim();
+      if (/^(_gcl|_ga|_gac)/.test(nom)) {
+        const fin = '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+        document.cookie = nom + fin;
+        document.cookie = nom + fin + '; domain=.' + location.hostname.replace(/^www\./, '');
+      }
+    });
+  };
+
+  const bandeau = document.getElementById('cookies');
+  const fermerBandeau = () => { bandeau.hidden = true; };
+  document.getElementById('cookiesAccepter').addEventListener('click', () => { ecrireChoix('accept'); fermerBandeau(); chargerBalise(); });
+  document.getElementById('cookiesRefuser').addEventListener('click', () => {
+    ecrireChoix('refuse'); fermerBandeau();
+    if (baliseChargee) { effacerCookiesGoogle(); location.reload(); }
+  });
+  document.getElementById('gererCookies').addEventListener('click', e => { e.preventDefault(); bandeau.hidden = false; });
+
+  const choix = lireChoix();
+  if (choix === 'accept') chargerBalise();
+  else if (!choix) bandeau.hidden = false;
+
   // Masque le texte de remplacement quand la photo existe
   document.querySelectorAll('.avant-apres .img').forEach(el => {
     const url = el.style.backgroundImage.slice(5, -2);
@@ -509,9 +585,13 @@
         body: JSON.stringify(demande)
       });
       if (!r.ok) throw new Error(r.status);
+      const reponse = await r.json().catch(() => ({}));
       form.style.display = 'none';
       document.getElementById('merci').style.display = 'block';
-      if (typeof window.gtag === 'function') gtag('event', 'generate_lead', { form_id: 'couvreur-essonne' });
+      // Conversion Google Ads, uniquement si le visiteur a accepté les cookies.
+      // Le numéro du lead sert de transaction_id : Google ne compte jamais deux
+      // fois la même demande.
+      if (baliseChargee) gtag('event', 'conversion', { send_to: CONVERSION_DEVIS, value: 1.0, currency: 'EUR', transaction_id: reponse.id || '' });
     } catch (err) {
       erreur.hidden = false;
       bouton.disabled = false;
