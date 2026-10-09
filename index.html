@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Couvreur en Essonne | Votre couvreur partenaire</title>
-<meta name="description" content="Réparation de toiture, recherche de fuite, démoussage et réfection dans toute l'Essonne (91). Décrivez vos travaux et recevez votre devis gratuit sous 24 h.">
+<title>Réfection et rénovation de toiture en Essonne | Couvreur Essonne</title>
+<meta name="description" content="Réfection complète de toiture, rénovation de charpente et isolation par l'extérieur dans toute l'Essonne (91). Visite et devis gratuits par un couvreur local.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -185,7 +185,7 @@
   @media (max-width: 640px) {
     header .wrap { flex-direction: column; justify-content: center; height: auto; padding-top: 14px; padding-bottom: 14px; gap: 8px; }
     nav { gap: 18px; font-size: 14px; }
-    nav a[href="#prestations"] { display: none; }
+    nav a[href="#prestations"], nav a[href="#garanties"] { display: none; }
   }
   @media (max-width: 520px) {
     .wrap { padding: 0 16px; }
@@ -239,12 +239,12 @@
           <div class="avis-texte"><b>5/5</b> sur Google<br>Nos artisans partenaires</div>
         </div>
 
-        <h1>Couvreur <span class="accent">en Essonne</span>&nbsp;:<br>votre couvreur partenaire</h1>
-        <p class="sous-titre">Fuite, tuiles cassées, démoussage ou toiture à refaire. Décrivez vos travaux, un couvreur vous rappelle et passe chiffrer gratuitement.</p>
+        <h1>Réfection et rénovation de toiture <span class="accent">en Essonne</span></h1>
+        <p class="sous-titre">Toiture à refaire, charpente fatiguée, isolation par l'extérieur. Décrivez votre projet : un couvreur de votre secteur vous rappelle et passe chiffrer gratuitement.</p>
 
         <ul class="atouts">
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Devis gratuit</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Intervention rapide sur fuite</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Visite technique sur place</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Couvreurs locaux expérimentés</li>
         </ul>
       </div>
@@ -298,22 +298,45 @@
           </div>
 
           <div class="champ">
-            <label for="type">Type de travaux *</label>
+            <label for="type">Votre projet *</label>
             <select id="type" name="type_travaux" required>
               <option value="" selected disabled>Choisissez</option>
-              <option>Fuite / infiltration (urgent)</option>
-              <option>Tuiles cassées ou déplacées</option>
-              <option>Démoussage et traitement</option>
               <option>Réfection complète de toiture</option>
-              <option>Gouttières et zinguerie</option>
-              <option>Velux / fenêtre de toit</option>
-              <option>Autre</option>
+              <option>Rénovation partielle de toiture</option>
+              <option>Rénovation de charpente</option>
+              <option>Isolation de toiture par l'extérieur</option>
+              <option>Couverture neuve (construction, extension)</option>
+              <option>Zinguerie complète</option>
+              <option>Réparation ou fuite</option>
             </select>
           </div>
 
+          <div class="ligne">
+            <div class="champ">
+              <label for="surface">Surface de toiture</label>
+              <select id="surface" name="surface">
+                <option value="" selected>Je ne sais pas</option>
+                <option>Moins de 50 m²</option>
+                <option>50 à 100 m²</option>
+                <option>100 à 150 m²</option>
+                <option>Plus de 150 m²</option>
+              </select>
+            </div>
+            <div class="champ">
+              <label for="delai">Délai souhaité</label>
+              <select id="delai" name="delai">
+                <option value="" selected>Pas encore défini</option>
+                <option>Dès que possible</option>
+                <option>D'ici 3 mois</option>
+                <option>D'ici 6 mois</option>
+                <option>Je compare des devis</option>
+              </select>
+            </div>
+          </div>
+
           <div class="champ">
-            <label for="travaux">Décrivez vos travaux *</label>
-            <textarea id="travaux" name="travaux" placeholder="Ex. : tache au plafond de la chambre après l'orage, quelques tuiles ont bougé côté rue…" required></textarea>
+            <label for="travaux">Décrivez votre projet *</label>
+            <textarea id="travaux" name="travaux" placeholder="Ex. : pavillon de 1975, tuiles d'origine poreuses, nous voulons refaire toute la toiture avant l'hiver…" required></textarea>
           </div>
 
           <!-- Pot de miel : invisible pour un humain, rempli par les robots -->
@@ -353,14 +376,14 @@
   <section class="claire" id="prestations">
     <div class="wrap">
       <h2 class="titre-section">Nos prestations de couverture</h2>
-      <p class="chapo">De la tuile à remplacer à la toiture complète, sur pavillon comme sur maison ancienne.</p>
+      <p class="chapo">Des chantiers de toiture complets, sur pavillon comme sur maison ancienne.</p>
       <ul class="prestations">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.6 6 11a6 6 0 0 1-12 0c0-4.4 6-11 6-11z"/></svg><h3>Recherche de fuite</h3><p>On trouve l'origine de l'infiltration et on la stoppe avant qu'elle n'abîme l'isolation.</p></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-8 9 8"/><path d="M6 10v10h12V10"/></svg><h3>Réparation de toiture</h3><p>Tuiles cassées ou glissées, faîtage, rives et solins de cheminée.</p></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c4-1 6-4 7-9M20 4c-6 0-10 3-11 9"/><path d="M14 10c2 0 4 1 6 4"/></svg><h3>Démoussage et traitement</h3><p>Nettoyage, traitement anti-mousse et hydrofuge pour prolonger la vie des tuiles.</p></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16M15 4v16"/></svg><h3>Réfection complète</h3><p>Dépose, liteaunage, écran sous-toiture et pose de tuiles neuves.</p></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18l-2 4H5z"/><path d="M17 10v10"/></svg><h3>Gouttières et zinguerie</h3><p>Pose et remplacement de gouttières, descentes et habillages en zinc.</p></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20L9 4h6l4 16z"/><path d="M7 12h10"/></svg><h3>Velux et fenêtres de toit</h3><p>Pose, remplacement et reprise d'étanchéité autour des fenêtres de toit.</p></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16M15 4v16"/></svg><h3>Réfection complète</h3><p>Dépose de l'ancienne couverture, liteaunage, écran sous-toiture et pose de tuiles ou d'ardoises neuves.</p></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-8 9 8"/><path d="M7 9v11M17 9v11M7 14h10"/></svg><h3>Rénovation de charpente</h3><p>Remplacement des pièces abîmées, traitement du bois et remise à niveau avant la nouvelle couverture.</p></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13l9-8 9 8"/><path d="M5 11l7-6 7 6"/><path d="M6 13v7h12v-7"/></svg><h3>Isolation par l'extérieur</h3><p>Sarking : l'isolant posé sur la charpente, sans perdre de place dans les combles, en même temps que la réfection.</p></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-8 9 8"/><path d="M6 10v10h12V10"/><path d="M12 14v6"/></svg><h3>Couverture neuve</h3><p>Toiture de construction neuve, d'extension ou de surélévation, du choix des matériaux à la pose.</p></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18l-2 4H5z"/><path d="M17 10v10"/></svg><h3>Zinguerie complète</h3><p>Gouttières, descentes, noues, solins et habillages en zinc refaits avec la toiture.</p></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.6 6 11a6 6 0 0 1-12 0c0-4.4 6-11 6-11z"/></svg><h3>Fuite et réparation</h3><p>Recherche de l'infiltration et diagnostic : faut-il réparer ou refaire ? Le couvreur vous le dit franchement.</p></li>
       </ul>
     </div>
   </section>
@@ -572,7 +595,7 @@
       lead_form: 'couvreur-essonne',
       name: v('nom'), phone: v('telephone'), email: v('email'),
       address: v('adresse'), commune: v('commune'), postal_code: v('code_postal'),
-      work_type: v('type_travaux'), message: v('travaux'),
+      work_type: v('type_travaux'), surface: v('surface'), delai: v('delai'), message: v('travaux'),
       website: v('website'), page: location.pathname, gclid: lireGclid()
     };
 
