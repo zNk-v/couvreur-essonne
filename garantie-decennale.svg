@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Garantie décennale 10 ans">
+  <defs>
+    <path id="arcHaut" d="M22 60a38 38 0 0 1 76 0"/>
+    <path id="arcBas" d="M14.5 60a45.5 45.5 0 0 0 91 0"/>
+  </defs>
+  <circle cx="60" cy="60" r="57" fill="#b4512a"/>
+  <circle cx="60" cy="60" r="52.5" fill="none" stroke="#fff" stroke-width="1.5" stroke-dasharray="2 3"/>
+  <circle cx="60" cy="60" r="30" fill="#fff"/>
+  <text font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="10.5" font-weight="800" letter-spacing="1.6" fill="#fff"><textPath href="#arcHaut" startOffset="50%" text-anchor="middle">GARANTIE</textPath></text>
+  <text font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="10.5" font-weight="800" letter-spacing="1.6" fill="#fff"><textPath href="#arcBas" startOffset="50%" text-anchor="middle">DÉCENNALE</textPath></text>
+  <text x="60" y="63" text-anchor="middle" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="26" font-weight="800" fill="#1a2229">10</text>
+  <text x="60" y="76" text-anchor="middle" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="9" font-weight="700" letter-spacing="1.5" fill="#1a2229">ANS</text>
+</svg>

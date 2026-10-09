@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Couvreur en Essonne | Votre couvreur partenaire</title>
+<meta name="description" content="Réparation de toiture, recherche de fuite, démoussage et réfection dans toute l'Essonne (91). Décrivez vos travaux et recevez votre devis gratuit sous 24 h.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ardoise: #1a2229;
+    --ardoise-2: #232d36;
+    --tuile: #b4512a;
+    --tuile-vive: #e8875c;
+    --tuile-clair: #f8ebe4;
+    --blanc: #ffffff;
+    --texte: #1d242a;
+    --gris: #66707a;
+    --bord: #e0e3e6;
+    --rayon: 16px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    color: var(--texte);
+    background: var(--ardoise);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+  /* Header */
+  header { background: var(--blanc); }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 24px; }
+  .logo { font-weight: 800; font-size: 20px; text-decoration: none; color: var(--ardoise); display: flex; align-items: center; gap: 10px; }
+  .logo svg { width: 30px; height: 30px; }
+  nav { display: flex; align-items: center; gap: 28px; font-size: 15px; font-weight: 500; }
+  nav a { text-decoration: none; color: var(--texte); white-space: nowrap; }
+  .logo span { white-space: nowrap; }
+  nav a:hover { color: var(--tuile); }
+
+  /* Hero */
+  .hero { color: var(--blanc); padding: 64px 0 80px; }
+  .hero .wrap { display: grid; grid-template-columns: 1.15fr 0.85fr; grid-template-areas: "texte carte" "photo carte"; gap: 0 56px; align-items: start; }
+  .hero-texte { grid-area: texte; }
+  .avant-apres { grid-area: photo; }
+  .carte { grid-area: carte; }
+  .avis { display: flex; align-items: center; gap: 12px; font-size: 14px; color: #c5ccd2; margin-bottom: 24px; }
+  .avis .g { width: 34px; height: 34px; background: var(--blanc); border-radius: 8px; display: grid; place-items: center; }
+  .etoiles { display: flex; gap: 3px; }
+  .etoiles span { width: 26px; height: 26px; background: #f5c33b; display: grid; place-items: center; border-radius: 3px; }
+  .etoiles svg { width: 16px; height: 16px; fill: var(--blanc); }
+  .avis b { color: var(--blanc); }
+  .surtitre { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--tuile-vive); margin-bottom: 18px; }
+  .surtitre::before { content: ""; width: 18px; height: 2px; background: var(--tuile-vive); }
+  h1 { font-size: clamp(34px, 4.4vw, 52px); line-height: 1.12; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 20px; }
+  h1 .accent { color: var(--tuile-vive); }
+  .sous-titre { font-size: 18px; color: #c5ccd2; max-width: 560px; margin-bottom: 24px; }
+  .atouts { display: flex; flex-wrap: wrap; gap: 22px; font-size: 14px; color: #c5ccd2; margin-bottom: 36px; list-style: none; }
+  .atouts li { display: flex; align-items: center; gap: 8px; }
+  .atouts svg { width: 18px; height: 18px; stroke: var(--tuile-vive); }
+
+  /* Avant / après */
+  .avant-apres { position: relative; border-radius: var(--rayon); overflow: hidden; aspect-ratio: 16 / 10; background: var(--ardoise-2); user-select: none; touch-action: pan-y; }
+  .avant-apres .img { position: absolute; inset: 0; background-size: cover; background-position: center; }
+  .avant-apres .img.avant { clip-path: inset(0 50% 0 0); }
+  .avant-apres .placeholder { position: absolute; inset: 0; display: grid; place-items: center; color: rgba(255,255,255,.55); font-size: 14px; font-weight: 600; text-align: center; }
+  .avant-apres .img.apres .placeholder { background: linear-gradient(160deg, #4a5560, #2f3942); padding-left: 50%; }
+  .avant-apres .img.avant .placeholder { background: linear-gradient(160deg, #6b4434, #44291e); padding-right: 50%; }
+  .badge { position: absolute; top: 16px; background: var(--blanc); color: var(--texte); font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 999px; z-index: 3; }
+  .badge.g { left: 16px; } .badge.d { right: 16px; }
+  .poignee { position: absolute; top: 0; bottom: 0; left: 50%; width: 3px; background: var(--blanc); transform: translateX(-50%); z-index: 2; cursor: ew-resize; }
+  .poignee::after { content: ""; position: absolute; top: 50%; left: 50%; width: 40px; height: 40px; border-radius: 50%; background: var(--blanc); transform: translate(-50%, -50%); box-shadow: 0 4px 14px rgba(0,0,0,.25);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a2229' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l-6 6 6 6M15 6l6 6-6 6'/%3E%3C/svg%3E");
+    background-size: 22px; background-repeat: no-repeat; background-position: center; }
+  .poignee:focus-visible { outline: 3px solid var(--tuile-vive); outline-offset: 2px; }
+
+  /* Formulaire */
+  .carte { background: var(--blanc); color: var(--texte); border-radius: var(--rayon); padding: 32px; box-shadow: 0 24px 60px rgba(0,0,0,.3); position: sticky; top: 24px; }
+  .carte h2 { font-size: 22px; font-weight: 800; margin-bottom: 10px; }
+  .pastille { display: inline-block; background: var(--tuile-clair); color: var(--tuile); font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 6px; margin-bottom: 12px; }
+  .carte .intro { font-size: 14px; color: var(--gris); margin-bottom: 22px; }
+  .ligne { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .champ { margin-bottom: 16px; }
+  label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+  label small { font-weight: 400; color: var(--gris); }
+  input, textarea, select { width: 100%; font: inherit; font-size: 15px; padding: 12px 14px; border: 1px solid var(--bord); border-radius: 10px; background: #fbfbfc; color: var(--texte); transition: border-color .15s, box-shadow .15s; }
+  select { appearance: none; cursor: pointer; padding-right: 40px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2366707a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 12px center; background-size: 18px; }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--tuile); box-shadow: 0 0 0 3px rgba(180,81,42,.15); background-color: var(--blanc); }
+  input::placeholder, textarea::placeholder { color: #a2a9b0; }
+  textarea { resize: vertical; min-height: 96px; }
+  .aide { font-size: 12px; color: var(--gris); margin-top: 5px; }
+  button[type="submit"] { width: 100%; font: inherit; font-weight: 700; font-size: 16px; color: var(--blanc); background: linear-gradient(180deg, #bf5a31, #a3461f); border: 0; border-radius: 10px; padding: 16px; cursor: pointer; margin-top: 4px; transition: transform .1s, filter .15s; }
+  button[type="submit"]:hover { filter: brightness(1.08); }
+  button[type="submit"]:active { transform: translateY(1px); }
+  button[type="submit"]:disabled { opacity: .6; cursor: wait; }
+  .piege { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .erreur-envoi { font-size: 14px; color: #b42318; background: #fef3f2; border-radius: 8px; padding: 10px 12px; margin-top: 12px; }
+  .mentions { font-size: 12px; color: var(--gris); margin-top: 14px; }
+  .merci { display: none; text-align: center; padding: 40px 8px; }
+  .merci svg { width: 56px; height: 56px; stroke: var(--tuile); margin-bottom: 12px; }
+  .merci h3 { font-size: 22px; margin-bottom: 8px; }
+  .merci p { color: var(--gris); }
+
+  /* Sections */
+  section.claire { background: var(--blanc); padding: 80px 0; }
+  section.claire + section.claire { padding-top: 0; }
+  .titre-section { font-size: clamp(26px, 3vw, 34px); font-weight: 800; letter-spacing: -0.01em; margin-bottom: 12px; color: var(--ardoise); }
+  .chapo { color: var(--gris); max-width: 620px; margin-bottom: 40px; }
+  .etapes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .etape { border: 1px solid var(--bord); border-radius: var(--rayon); padding: 28px; }
+  .etape .num { width: 40px; height: 40px; border-radius: 50%; background: var(--ardoise); color: var(--tuile-vive); font-weight: 800; display: grid; place-items: center; margin-bottom: 16px; }
+  .etape h3 { font-size: 18px; margin-bottom: 6px; }
+  .etape p { color: var(--gris); font-size: 15px; }
+  .prestations { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; list-style: none; }
+  .prestations li { background: #f6f7f8; border-radius: var(--rayon); padding: 24px; }
+  .prestations svg { width: 28px; height: 28px; stroke: var(--tuile); margin-bottom: 12px; }
+  .prestations h3 { font-size: 17px; margin-bottom: 4px; }
+  .prestations p { color: var(--gris); font-size: 15px; }
+  .communes { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; }
+  .communes li { background: var(--tuile-clair); color: var(--ardoise); font-size: 14px; font-weight: 600; padding: 8px 14px; border-radius: 999px; }
+
+  /* Gages de confiance */
+  .confiance { background: var(--blanc); border-bottom: 1px solid var(--bord); }
+  .confiance ul { list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); }
+  .confiance li { display: flex; align-items: center; gap: 12px; padding: 22px 16px; font-size: 14px; color: var(--gris); line-height: 1.35; }
+  .confiance li + li { border-left: 1px solid var(--bord); }
+  .confiance b { display: block; color: var(--ardoise); font-size: 15px; }
+  .confiance .ico { flex: none; width: 44px; height: 44px; border-radius: 12px; background: var(--tuile-clair); display: grid; place-items: center; }
+  .confiance .ico svg { width: 22px; height: 22px; stroke: var(--tuile); }
+  .confiance .ico.blanc { background: #f6f7f8; }
+  .confiance img { width: 48px; height: 48px; flex: none; }
+  .carte-confiance { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--bord); font-size: 12px; font-weight: 600; color: var(--gris); }
+  .carte-confiance img { width: 34px; height: 34px; }
+  .carte-confiance span { display: flex; align-items: center; gap: 6px; }
+  .carte-confiance svg { width: 16px; height: 16px; stroke: var(--tuile); }
+  .garanties { display: grid; grid-template-columns: 1fr 1.6fr; gap: 48px; align-items: center; }
+  .garanties .sceau { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 16px; background: var(--ardoise); color: #c5ccd2; border-radius: var(--rayon); padding: 40px 28px; font-size: 15px; }
+  .garanties .sceau img { width: 150px; height: 150px; }
+  .garanties .sceau b { color: var(--blanc); font-size: 20px; }
+  .liste-garanties { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 32px; list-style: none; }
+  .liste-garanties li { display: flex; gap: 14px; }
+  .liste-garanties svg { flex: none; width: 24px; height: 24px; stroke: var(--tuile); margin-top: 2px; }
+  .liste-garanties h3 { font-size: 16px; margin-bottom: 2px; }
+  .liste-garanties p { color: var(--gris); font-size: 15px; }
+
+  footer { color: #9aa5ae; font-size: 14px; padding: 32px 0; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  footer a { text-decoration: none; } footer a:hover { color: var(--blanc); }
+
+  @media (max-width: 960px) {
+    /* Mobile : texte, puis formulaire, puis photo */
+    .hero .wrap { grid-template-columns: 1fr; grid-template-areas: "texte" "carte" "photo"; gap: 32px; }
+    .atouts { margin-bottom: 0; }
+    .carte { position: static; }
+    .etapes, .prestations { grid-template-columns: 1fr; }
+    .confiance ul { grid-template-columns: 1fr 1fr; }
+    .confiance li { border-left: 0 !important; border-top: 1px solid var(--bord); }
+    .confiance li:nth-child(-n+2) { border-top: 0; }
+    .confiance li:last-child { grid-column: 1 / -1; }
+    .garanties { grid-template-columns: 1fr; gap: 32px; }
+  }
+  @media (min-width: 640px) and (max-width: 960px) {
+    .prestations { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    header .wrap { flex-direction: column; justify-content: center; height: auto; padding-top: 14px; padding-bottom: 14px; gap: 8px; }
+    nav { gap: 18px; font-size: 14px; }
+    nav a[href="#prestations"] { display: none; }
+  }
+  @media (max-width: 520px) {
+    .wrap { padding: 0 16px; }
+    .confiance li { padding: 16px 8px; gap: 10px; font-size: 13px; }
+    .confiance .ico { width: 38px; height: 38px; }
+    .liste-garanties { grid-template-columns: 1fr; }
+    .hero { padding: 40px 0 56px; }
+    .carte { padding: 24px 18px; }
+    .ligne { grid-template-columns: 1fr; gap: 0; }
+    .atouts { gap: 12px 18px; }
+    .logo span { font-size: 17px; white-space: nowrap; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="#" class="logo" aria-label="Accueil">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M3 16L16 5l13 11" stroke="#b4512a" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 15.5V27h18V15.5" fill="#1a2229"/><rect x="21" y="6" width="3.4" height="7" rx="1" fill="#1a2229"/><rect x="13.5" y="19" width="5" height="8" rx="1" fill="#e8875c"/></svg>
+      <span>Couvreur Essonne</span>
+    </a>
+    <nav>
+      <a href="#prestations">Prestations</a>
+      <a href="#garanties">Garanties</a>
+      <a href="#zones">Zones d'intervention</a>
+      <a href="#fonctionnement">Comment ça marche</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-texte">
+        <!-- Note Google : remplacer XX par la note et le nombre d'avis RÉELS de la fiche Google -->
+        <div class="avis">
+          <div class="g">
+            <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>
+          </div>
+          <div class="etoiles" aria-hidden="true">
+            <span><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.7-5.7 5 1.7 7.4L12 18.3 5.5 22l1.7-7.4-5.7-5 7.5-.7z"/></svg></span>
+            <span><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.7-5.7 5 1.7 7.4L12 18.3 5.5 22l1.7-7.4-5.7-5 7.5-.7z"/></svg></span>
+            <span><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.7-5.7 5 1.7 7.4L12 18.3 5.5 22l1.7-7.4-5.7-5 7.5-.7z"/></svg></span>
+            <span><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.7-5.7 5 1.7 7.4L12 18.3 5.5 22l1.7-7.4-5.7-5 7.5-.7z"/></svg></span>
+            <span><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.7-5.7 5 1.7 7.4L12 18.3 5.5 22l1.7-7.4-5.7-5 7.5-.7z"/></svg></span>
+          </div>
+          <div><b>5/5</b> · XX avis Google</div>
+        </div>
+
+        <h1>Couvreur <span class="accent">en Essonne</span>&nbsp;:<br>votre couvreur partenaire</h1>
+        <p class="sous-titre">Fuite, tuiles cassées, démoussage ou toiture à refaire. Décrivez vos travaux, un couvreur vous rappelle et passe chiffrer gratuitement.</p>
+
+        <ul class="atouts">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Devis gratuit</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Intervention rapide sur fuite</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Couvreurs locaux expérimentés</li>
+        </ul>
+      </div>
+
+      <!-- Avant / après : déposez avant.jpg et apres.jpg (même toiture, même angle) à côté de ce fichier -->
+      <div class="avant-apres" id="avantApres">
+          <div class="img apres" style="background-image:url('apres.jpg')"><div class="placeholder">Photo « après »<br>(apres.jpg)</div></div>
+          <div class="img avant" style="background-image:url('avant.jpg')"><div class="placeholder">Photo « avant »<br>(avant.jpg)</div></div>
+          <span class="badge g">Avant</span>
+          <span class="badge d">Après</span>
+          <div class="poignee" role="slider" aria-label="Comparer avant et après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0"></div>
+      </div>
+
+      <aside class="carte" id="devis">
+        <form id="formDevis" novalidate>
+          <h2>Demandez votre devis gratuit</h2>
+          <span class="pastille">Réponse sous 24 h</span>
+          <p class="intro">Un couvreur vous rappelle pour fixer la visite (Essonne).</p>
+
+          <div class="ligne">
+            <div class="champ">
+              <label for="nom">Votre nom *</label>
+              <input id="nom" name="nom" placeholder="Marie Dupont" required autocomplete="name">
+            </div>
+            <div class="champ">
+              <label for="tel">Téléphone *</label>
+              <input id="tel" name="telephone" type="tel" placeholder="06 12 34 56 78" required autocomplete="tel" pattern="^(\+33|0)[1-9]([ .\-]?\d{2}){4}$">
+            </div>
+          </div>
+
+          <div class="champ">
+            <label for="email">Email <small>(facultatif)</small></label>
+            <input id="email" name="email" type="email" placeholder="marie@exemple.fr" autocomplete="email">
+          </div>
+
+          <div class="champ">
+            <label for="adresse">Adresse du chantier *</label>
+            <input id="adresse" name="adresse" placeholder="12 rue des Lilas" required autocomplete="street-address">
+            <p class="aide">Nécessaire au devis (visite de la toiture, accès échafaudage).</p>
+          </div>
+
+          <div class="ligne">
+            <div class="champ">
+              <label for="commune">Commune *</label>
+              <input id="commune" name="commune" placeholder="Évry-Courcouronnes" required autocomplete="address-level2">
+            </div>
+            <div class="champ">
+              <label for="cp">Code postal *</label>
+              <input id="cp" name="code_postal" placeholder="91000" required inputmode="numeric" pattern="^91\d{3}$" maxlength="5" autocomplete="postal-code">
+            </div>
+          </div>
+
+          <div class="champ">
+            <label for="type">Type de travaux *</label>
+            <select id="type" name="type_travaux" required>
+              <option value="" selected disabled>Choisissez</option>
+              <option>Fuite / infiltration (urgent)</option>
+              <option>Tuiles cassées ou déplacées</option>
+              <option>Démoussage et traitement</option>
+              <option>Réfection complète de toiture</option>
+              <option>Gouttières et zinguerie</option>
+              <option>Velux / fenêtre de toit</option>
+              <option>Autre</option>
+            </select>
+          </div>
+
+          <div class="champ">
+            <label for="travaux">Décrivez vos travaux *</label>
+            <textarea id="travaux" name="travaux" placeholder="Ex. : tache au plafond de la chambre après l'orage, quelques tuiles ont bougé côté rue…" required></textarea>
+          </div>
+
+          <!-- Pot de miel : invisible pour un humain, rempli par les robots -->
+          <div class="piege" aria-hidden="true"><label for="website">Site web</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+
+          <button type="submit">Demander mon devis gratuit</button>
+          <p class="erreur-envoi" id="erreurEnvoi" role="alert" hidden>L'envoi n'a pas abouti. Vérifiez votre connexion et réessayez, ou écrivez-nous à <a href="mailto:contact@sitaly.fr">contact@sitaly.fr</a>.</p>
+          <div class="carte-confiance">
+            <img src="garantie-decennale.svg" alt="Garantie décennale">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Artisans assurés</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Données protégées</span>
+          </div>
+          <p class="mentions">Service gratuit et sans engagement. Vos coordonnées servent uniquement à établir votre devis et sont transmises au couvreur partenaire de votre secteur. <a href="#">Politique de confidentialité</a></p>
+        </form>
+
+        <div class="merci" id="merci" role="status">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>
+          <h3>Demande envoyée</h3>
+          <p>Merci ! Un couvreur vous rappelle sous 24 h pour fixer la visite.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="confiance" aria-label="Nos garanties">
+    <div class="wrap">
+      <ul>
+        <li><img src="garantie-decennale.svg" alt="Garantie décennale 10 ans"><div><b>Garantie décennale</b>Travaux couverts 10 ans</div></li>
+        <li><span class="ico blanc"><svg width="24" height="24" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg></span><div><b>5/5 sur Google</b>XX avis clients</div></li>
+        <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M9 14l2 2 4-4"/></svg></span><div><b>Devis gratuit</b>Sans engagement</div></li>
+        <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><b>Rappel sous 24 h</b>Urgence fuite traitée vite</div></li>
+        <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><div><b>Artisans du 91</b>Couvreurs installés en Essonne</div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="claire" id="prestations">
+    <div class="wrap">
+      <h2 class="titre-section">Nos prestations de couverture</h2>
+      <p class="chapo">De la tuile à remplacer à la toiture complète, sur pavillon comme sur maison ancienne.</p>
+      <ul class="prestations">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.6 6 11a6 6 0 0 1-12 0c0-4.4 6-11 6-11z"/></svg><h3>Recherche de fuite</h3><p>On trouve l'origine de l'infiltration et on la stoppe avant qu'elle n'abîme l'isolation.</p></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-8 9 8"/><path d="M6 10v10h12V10"/></svg><h3>Réparation de toiture</h3><p>Tuiles cassées ou glissées, faîtage, rives et solins de cheminée.</p></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c4-1 6-4 7-9M20 4c-6 0-10 3-11 9"/><path d="M14 10c2 0 4 1 6 4"/></svg><h3>Démoussage et traitement</h3><p>Nettoyage, traitement anti-mousse et hydrofuge pour prolonger la vie des tuiles.</p></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16M15 4v16"/></svg><h3>Réfection complète</h3><p>Dépose, liteaunage, écran sous-toiture et pose de tuiles neuves.</p></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18l-2 4H5z"/><path d="M17 10v10"/></svg><h3>Gouttières et zinguerie</h3><p>Pose et remplacement de gouttières, descentes et habillages en zinc.</p></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20L9 4h6l4 16z"/><path d="M7 12h10"/></svg><h3>Velux et fenêtres de toit</h3><p>Pose, remplacement et reprise d'étanchéité autour des fenêtres de toit.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="claire" id="garanties">
+    <div class="wrap garanties">
+      <div class="sceau">
+        <img src="garantie-decennale.svg" alt="Garantie décennale 10 ans">
+        <b>Vos travaux garantis 10 ans</b>
+        <p>Chaque couvreur partenaire vous remet son attestation d'assurance décennale avec le devis.</p>
+      </div>
+      <div>
+        <h2 class="titre-section">Pourquoi nous faire confiance</h2>
+        <p class="chapo">Une toiture se paie cher quand elle est mal faite. Voici ce que vous obtenez avec nos couvreurs.</p>
+        <ul class="liste-garanties">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg><div><h3>Assurance décennale et RC Pro</h3><p>Attestations fournies avant le début du chantier.</p></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg><div><h3>Devis écrit et détaillé</h3><p>Chaque poste chiffré après visite de la toiture. Aucun frais si vous refusez.</p></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><div><h3>Photos de votre toiture</h3><p>Le couvreur vous montre l'état du toit en photo avant et après les travaux.</p></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg><div><h3>Chantier propre</h3><p>Bâchage pendant les travaux, nettoyage et évacuation des gravats à la fin.</p></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><div><h3>Un seul interlocuteur</h3><p>Le couvreur qui chiffre est celui qui monte sur votre toit.</p></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><div><h3>Artisans de l'Essonne</h3><p>Des couvreurs installés dans le 91, qui connaissent les toitures du secteur.</p></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="claire" id="fonctionnement">
+    <div class="wrap">
+      <h2 class="titre-section">Comment ça marche</h2>
+      <p class="chapo">Trois étapes entre votre demande et une toiture saine.</p>
+      <div class="etapes">
+        <div class="etape"><div class="num">1</div><h3>Vous décrivez vos travaux</h3><p>Remplissez le formulaire en deux minutes : type de toiture, problème constaté, adresse.</p></div>
+        <div class="etape"><div class="num">2</div><h3>Un couvreur vous rappelle</h3><p>Il passe voir la toiture et vous remet un devis gratuit et détaillé.</p></div>
+        <div class="etape"><div class="num">3</div><h3>Il intervient</h3><p>Réparation ou réfection, puis nettoyage du chantier et évacuation des gravats.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="claire" id="zones">
+    <div class="wrap">
+      <h2 class="titre-section">Zones d'intervention en Essonne (91)</h2>
+      <p class="chapo">Nous couvrons tout le département, notamment :</p>
+      <ul class="communes">
+        <li>Évry-Courcouronnes</li><li>Corbeil-Essonnes</li><li>Massy</li><li>Palaiseau</li>
+        <li>Savigny-sur-Orge</li><li>Sainte-Geneviève-des-Bois</li><li>Viry-Châtillon</li><li>Athis-Mons</li>
+        <li>Draveil</li><li>Yerres</li><li>Brétigny-sur-Orge</li><li>Arpajon</li>
+        <li>Étampes</li><li>Mennecy</li><li>Gif-sur-Yvette</li><li>Orsay</li>
+        <li>Les Ulis</li><li>Longjumeau</li><li>Montgeron</li><li>Dourdan</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Couvreur Essonne · Réparation, démoussage et réfection de toiture dans le 91</span>
+    <span><a href="#">Mentions légales</a> · <a href="#">Politique de confidentialité</a></span>
+  </div>
+</footer>
+
+<script>
+  // Masque le texte de remplacement quand la photo existe
+  document.querySelectorAll('.avant-apres .img').forEach(el => {
+    const url = el.style.backgroundImage.slice(5, -2);
+    const img = new Image();
+    img.onload = () => el.querySelector('.placeholder').remove();
+    img.src = url;
+  });
+
+  // Curseur avant / après
+  const box = document.getElementById('avantApres');
+  const avant = box.querySelector('.avant');
+  const poignee = box.querySelector('.poignee');
+  const placer = pct => {
+    pct = Math.max(0, Math.min(100, pct));
+    avant.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+    poignee.style.left = pct + '%';
+    poignee.setAttribute('aria-valuenow', Math.round(pct));
+  };
+  const depuisEvent = e => {
+    const r = box.getBoundingClientRect();
+    placer((e.clientX - r.left) / r.width * 100);
+  };
+  let drag = false, touche = false;
+  box.addEventListener('pointerdown', e => { touche = true; drag = true; box.setPointerCapture(e.pointerId); depuisEvent(e); });
+
+  // Balayage automatique à l'apparition du bloc (s'arrête dès que l'utilisateur touche le curseur)
+  const balayer = () => {
+    const etapes = [[50, 0], [88, 900], [12, 1700], [50, 1100]];
+    let i = 0, depart = 50, t0 = null;
+    const tick = t => {
+      if (touche || i >= etapes.length) return;
+      const [cible, duree] = etapes[i];
+      if (t0 === null) t0 = t;
+      const p = duree ? Math.min(1, (t - t0) / duree) : 1;
+      const e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+      placer(depart + (cible - depart) * e);
+      if (p >= 1) { depart = cible; t0 = null; i++; }
+      requestAnimationFrame(tick);
+    };
+    setTimeout(() => requestAnimationFrame(tick), 400);
+  };
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const obs = new IntersectionObserver(([en]) => {
+      if (en.isIntersecting) { balayer(); obs.disconnect(); }
+    }, { threshold: 0.6 });
+    obs.observe(box);
+  }
+  box.addEventListener('pointermove', e => { if (drag) depuisEvent(e); });
+  box.addEventListener('pointerup', () => { drag = false; });
+  poignee.addEventListener('keydown', e => {
+    touche = true;
+    const v = +poignee.getAttribute('aria-valuenow');
+    if (e.key === 'ArrowLeft') placer(v - 5);
+    if (e.key === 'ArrowRight') placer(v + 5);
+  });
+
+  // Formulaire : envoi au relais sitaly-forms (Worker Cloudflare), qui transmet
+  // la fiche lead par e-mail via Brevo et enregistre le contact dans la liste
+  // « Leads Couvreur Essonne ». Voir ~/sitaly-forms/src/index.js, LEADS.
+  const ENDPOINT = 'https://sitaly-forms.sitaly-forms.workers.dev';
+
+  // Identifiant de clic Google Ads, gardé le temps de la visite pour relier
+  // chaque lead à sa campagne.
+  const gclid = new URLSearchParams(location.search).get('gclid');
+  try { if (gclid) sessionStorage.setItem('gclid', gclid); } catch (e) {}
+  const lireGclid = () => { try { return sessionStorage.getItem('gclid') || ''; } catch (e) { return gclid || ''; } };
+
+  const form = document.getElementById('formDevis');
+  const erreur = document.getElementById('erreurEnvoi');
+  const bouton = form.querySelector('button[type="submit"]');
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    erreur.hidden = true;
+    let ok = true;
+    form.querySelectorAll('input:not(#website), textarea, select').forEach(ch => {
+      const valide = ch.checkValidity();
+      ch.style.borderColor = valide ? '' : '#d14343';
+      if (!valide && ok) { ch.focus(); ok = false; }
+    });
+    if (!ok) return;
+
+    const v = name => form.elements[name].value.trim();
+    const demande = {
+      lead_form: 'couvreur-essonne',
+      name: v('nom'), phone: v('telephone'), email: v('email'),
+      address: v('adresse'), commune: v('commune'), postal_code: v('code_postal'),
+      work_type: v('type_travaux'), message: v('travaux'),
+      website: v('website'), page: location.pathname, gclid: lireGclid()
+    };
+
+    bouton.disabled = true;
+    bouton.textContent = 'Envoi en cours…';
+    try {
+      const r = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(demande)
+      });
+      if (!r.ok) throw new Error(r.status);
+      form.style.display = 'none';
+      document.getElementById('merci').style.display = 'block';
+      if (typeof window.gtag === 'function') gtag('event', 'generate_lead', { form_id: 'couvreur-essonne' });
+    } catch (err) {
+      erreur.hidden = false;
+      bouton.disabled = false;
+      bouton.textContent = 'Demander mon devis gratuit';
+    }
+  });
+</script>
+</body>
+</html>
