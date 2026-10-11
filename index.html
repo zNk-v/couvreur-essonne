@@ -102,6 +102,10 @@
   button[type="submit"]:active { transform: translateY(1px); }
   button[type="submit"]:disabled { opacity: .6; cursor: wait; }
   .piege { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .erreur-champ { font-size: 13px; color: #b42318; margin-top: 5px; }
+  input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: #d14343; }
+  .commune-ok { color: #1f7a4d; font-weight: 600; }
+  .badge.illu { top: auto; bottom: 12px; left: 12px; font-size: 11px; font-weight: 600; background: rgba(255,255,255,.85); }
   .erreur-envoi { font-size: 14px; color: #b42318; background: #fef3f2; border-radius: 8px; padding: 10px 12px; margin-top: 12px; }
   .mentions { font-size: 12px; color: var(--gris); margin-top: 14px; }
   .merci { display: none; text-align: center; padding: 40px 8px; }
@@ -231,7 +235,8 @@
   <section class="hero">
     <div class="wrap">
       <div class="hero-texte">
-        <!-- Mention vraie tant que chaque artisan partenaire a une fiche Google bien notée -->
+        <!-- Note Google réelle d'un couvreur partenaire : 5/5 sur 18 avis vérifiables (11 octobre 2026).
+             À mettre à jour si la note change. Ne jamais afficher de note sans avis réels. -->
         <div class="avis">
           <div class="g">
             <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>
@@ -243,7 +248,7 @@
             <span><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.7-5.7 5 1.7 7.4L12 18.3 5.5 22l1.7-7.4-5.7-5 7.5-.7z"/></svg></span>
             <span><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.7-5.7 5 1.7 7.4L12 18.3 5.5 22l1.7-7.4-5.7-5 7.5-.7z"/></svg></span>
           </div>
-          <div class="avis-texte"><b>5/5</b> sur Google<br>Nos artisans partenaires</div>
+          <div class="avis-texte"><b>5/5</b> sur Google · 18 avis<br>Couvreur partenaire</div>
         </div>
 
         <h1>Réfection et rénovation de toiture <span class="accent">en Essonne</span></h1>
@@ -263,13 +268,14 @@
           <div class="img avant" style="background-image:url('avant.jpg')"><div class="placeholder">Photo « avant »<br>(avant.jpg)</div></div>
           <span class="badge g">Avant</span>
           <span class="badge d">Après</span>
+          <span class="badge illu">Images générées par IA</span>
           <div class="poignee" role="slider" aria-label="Comparer avant et après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0"></div>
       </div>
 
       <aside class="carte" id="devis">
-        <form id="formDevis" novalidate>
+        <form id="formDevis" novalidate onsubmit="return false">
           <h2>Demandez votre devis gratuit</h2>
-          <span class="pastille">Réponse sous 24 h</span>
+          <span class="pastille">Rappel sous 24 h ouvrées</span>
           <p class="intro">Un couvreur vous rappelle pour fixer la visite (Essonne).</p>
 
           <div class="ligne">
@@ -279,7 +285,7 @@
             </div>
             <div class="champ">
               <label for="tel">Téléphone *</label>
-              <input id="tel" name="telephone" type="tel" placeholder="06 12 34 56 78" required autocomplete="tel" pattern="^(\+33|0)[1-9]([ .\-]?\d{2}){4}$">
+              <input id="tel" name="telephone" type="tel" placeholder="06 12 34 56 78" required autocomplete="tel">
             </div>
           </div>
 
@@ -294,16 +300,18 @@
             <p class="aide">Utile pour la visite. Le couvreur peut aussi vous la demander au téléphone.</p>
           </div>
 
-          <div class="ligne">
-            <div class="champ">
-              <label for="commune">Commune *</label>
-              <input id="commune" name="commune" placeholder="Évry-Courcouronnes" required autocomplete="address-level2">
-            </div>
-            <div class="champ">
-              <label for="cp">Code postal *</label>
-              <input id="cp" name="code_postal" placeholder="91000" required inputmode="numeric" pattern="^91\d{3}$" maxlength="5" autocomplete="postal-code">
-            </div>
+          <div class="champ">
+            <label for="cp">Code postal du chantier *</label>
+            <input id="cp" name="code_postal" placeholder="91000" required inputmode="numeric" maxlength="6" autocomplete="postal-code">
+            <p class="aide commune-ok" id="communeTrouvee" hidden></p>
           </div>
+
+          <div class="champ" id="champCommune" hidden>
+            <label for="communeChoix">Commune *</label>
+            <select id="communeChoix" data-champ="commune" required disabled><option value="">Choisissez votre commune</option></select>
+            <input id="communeSaisie" data-champ="commune" placeholder="Évry-Courcouronnes" autocomplete="address-level2" required disabled hidden>
+          </div>
+          <input type="hidden" name="commune" id="commune">
 
           <div class="champ">
             <label for="type">Votre projet *</label>
@@ -343,8 +351,8 @@
           </div>
 
           <div class="champ">
-            <label for="travaux">Décrivez votre projet *</label>
-            <textarea id="travaux" name="travaux" placeholder="Ex. : pavillon de 1975, tuiles d'origine poreuses, nous voulons refaire toute la toiture avant l'hiver…" required></textarea>
+            <label for="travaux">Décrivez votre projet <small>(facultatif)</small></label>
+            <textarea id="travaux" name="travaux" placeholder="Ex. : pavillon de 1975, tuiles d'origine poreuses, nous voulons refaire toute la toiture avant l'hiver…"></textarea>
           </div>
 
           <!-- Pot de miel : invisible pour un humain, rempli par les robots -->
@@ -353,17 +361,17 @@
           <button type="submit">Demander mon devis gratuit</button>
           <p class="erreur-envoi" id="erreurEnvoi" role="alert" hidden>L'envoi n'a pas abouti. Vérifiez votre connexion et réessayez, ou écrivez-nous à <a href="mailto:contact@sitaly.fr">contact@sitaly.fr</a>.</p>
           <div class="carte-confiance">
-            <img src="garantie-decennale.svg" alt="Garantie décennale">
+            <img src="garantie-decennale.svg" alt="Assurance décennale">
             <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Artisans assurés</span>
             <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Données protégées</span>
           </div>
-          <p class="mentions">Service gratuit et sans engagement. Vos coordonnées servent uniquement à établir votre devis et sont transmises au couvreur partenaire de votre secteur. <a href="politique-confidentialite.html">Politique de confidentialité</a></p>
+          <p class="mentions">Service gratuit et sans engagement. Vos coordonnées servent à établir votre devis : elles sont transmises au couvreur partenaire de votre secteur, qui rémunère Sitaly pour ce service. <a href="politique-confidentialite.html">Politique de confidentialité</a></p>
         </form>
 
         <div class="merci" id="merci" role="status">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>
           <h3>Demande envoyée</h3>
-          <p>Merci ! Un couvreur vous rappelle sous 24 h pour fixer la visite.</p>
+          <p>Merci ! Un couvreur vous rappelle sous 24 h ouvrées pour fixer la visite.</p>
         </div>
       </aside>
     </div>
@@ -372,10 +380,10 @@
   <section class="confiance" aria-label="Nos garanties">
     <div class="wrap">
       <ul>
-        <li><img src="garantie-decennale.svg" alt="Garantie décennale 10 ans"><div><b>Garantie décennale</b>Travaux couverts 10 ans</div></li>
-        <li><span class="ico blanc"><svg width="24" height="24" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg></span><div><b>5/5 sur Google</b>Nos artisans partenaires</div></li>
+        <li><img src="garantie-decennale.svg" alt="Assurance décennale"><div><b>Assurance décennale</b>Attestation remise avec le devis</div></li>
+        <li><span class="ico blanc"><svg width="24" height="24" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg></span><div><b>5/5 sur Google</b>18 avis, couvreur partenaire</div></li>
         <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M9 14l2 2 4-4"/></svg></span><div><b>Devis gratuit</b>Sans engagement</div></li>
-        <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><b>Rappel sous 24 h</b>Urgence fuite traitée vite</div></li>
+        <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><b>Rappel sous 24 h ouvrées</b>Urgence fuite traitée vite</div></li>
         <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><div><b>Artisans du 91</b>Couvreurs installés en Essonne</div></li>
       </ul>
     </div>
@@ -383,7 +391,7 @@
 
   <section class="claire" id="prestations">
     <div class="wrap">
-      <h2 class="titre-section">Nos prestations de couverture</h2>
+      <h2 class="titre-section">Les travaux de nos couvreurs partenaires</h2>
       <p class="chapo">Des chantiers de toiture complets, sur pavillon comme sur maison ancienne.</p>
       <ul class="prestations">
         <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16M15 4v16"/></svg><h3>Réfection complète</h3><p>Dépose de l'ancienne couverture, liteaunage, écran sous-toiture et pose de tuiles ou d'ardoises neuves.</p></li>
@@ -399,13 +407,13 @@
   <section class="claire" id="garanties">
     <div class="wrap garanties">
       <div class="sceau">
-        <img src="garantie-decennale.svg" alt="Garantie décennale 10 ans">
-        <b>Vos travaux garantis 10 ans</b>
+        <img src="garantie-decennale.svg" alt="Assurance décennale">
+        <b>Assurance décennale obligatoire</b>
         <p>Chaque couvreur partenaire vous remet son attestation d'assurance décennale avec le devis.</p>
       </div>
       <div>
-        <h2 class="titre-section">Pourquoi nous faire confiance</h2>
-        <p class="chapo">Une toiture se paie cher quand elle est mal faite. Voici ce que vous obtenez avec nos couvreurs.</p>
+        <h2 class="titre-section">Ce que vous apporte un couvreur partenaire</h2>
+        <p class="chapo">Une toiture se paie cher quand elle est mal faite. Voici ce que vous obtenez avec nos couvreurs partenaires.</p>
         <ul class="liste-garanties">
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg><div><h3>Assurance décennale et RC Pro</h3><p>Attestations fournies avant le début du chantier.</p></div></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg><div><h3>Devis écrit et détaillé</h3><p>Chaque poste chiffré après visite de la toiture. Aucun frais si vous refusez.</p></div></li>
@@ -423,7 +431,7 @@
       <h2 class="titre-section">Comment ça marche</h2>
       <p class="chapo">Trois étapes entre votre demande et une toiture saine.</p>
       <div class="etapes">
-        <div class="etape"><div class="num">1</div><h3>Vous décrivez vos travaux</h3><p>Remplissez le formulaire en deux minutes : type de toiture, problème constaté, adresse.</p></div>
+        <div class="etape"><div class="num">1</div><h3>Vous décrivez vos travaux</h3><p>Remplissez le formulaire en une minute : type de travaux, surface, délai.</p></div>
         <div class="etape"><div class="num">2</div><h3>Un couvreur vous rappelle</h3><p>Il passe voir la toiture et vous remet un devis gratuit et détaillé.</p></div>
         <div class="etape"><div class="num">3</div><h3>Il intervient</h3><p>Réparation ou réfection, puis nettoyage du chantier et évacuation des gravats.</p></div>
       </div>
@@ -433,7 +441,7 @@
   <section class="claire" id="zones">
     <div class="wrap">
       <h2 class="titre-section">Zones d'intervention en Essonne (91)</h2>
-      <p class="chapo">Nous couvrons tout le département, notamment :</p>
+      <p class="chapo">Nos couvreurs partenaires couvrent tout le département, notamment :</p>
       <ul class="communes">
         <li>Évry-Courcouronnes</li><li>Corbeil-Essonnes</li><li>Massy</li><li>Palaiseau</li>
         <li>Savigny-sur-Orge</li><li>Sainte-Geneviève-des-Bois</li><li>Viry-Châtillon</li><li>Athis-Mons</li>
@@ -578,36 +586,184 @@
   // « Leads Couvreur Essonne ». Voir ~/sitaly-forms/src/index.js, LEADS.
   const ENDPOINT = 'https://sitaly-forms.sitaly-forms.workers.dev';
 
-  // Identifiant de clic Google Ads, gardé le temps de la visite pour relier
-  // chaque lead à sa campagne.
-  const gclid = new URLSearchParams(location.search).get('gclid');
-  try { if (gclid) sessionStorage.setItem('gclid', gclid); } catch (e) {}
-  const lireGclid = () => { try { return sessionStorage.getItem('gclid') || ''; } catch (e) { return gclid || ''; } };
+  // Identifiant de clic Google Ads : gardé pendant la visite et joint à la
+  // demande seulement si le visiteur a accepté les cookies.
+  const gclid = new URLSearchParams(location.search).get('gclid') || '';
+  const garderGclid = () => { try { if (gclid && lireChoix() === 'accept') sessionStorage.setItem('gclid', gclid); } catch (e) {} };
+  const lireGclid = () => {
+    if (lireChoix() !== 'accept') return '';
+    try { return sessionStorage.getItem('gclid') || gclid; } catch (e) { return gclid; }
+  };
+  garderGclid();
+  document.getElementById('cookiesAccepter').addEventListener('click', garderGclid);
+  document.getElementById('cookiesRefuser').addEventListener('click', () => { try { sessionStorage.removeItem('gclid'); } catch (e) {} });
 
+  const LEAD_FORM = 'couvreur-essonne';
   const form = document.getElementById('formDevis');
   const erreur = document.getElementById('erreurEnvoi');
   const bouton = form.querySelector('button[type="submit"]');
+
+  // Compteur d'étapes anonyme (ni cookie, ni identifiant) : chaque étape compte
+  // au plus une fois par visite, « pub » signale une visite venue d'une annonce.
+  const etapesVues = new Set();
+  const compter = etape => {
+    if (etapesVues.has(etape)) return;
+    etapesVues.add(etape);
+    try { navigator.sendBeacon(ENDPOINT + '/evt', JSON.stringify({ f: LEAD_FORM, e: etape, pub: Boolean(gclid || lireGclid()) })); } catch (e) {}
+  };
+  compter('vue');
+  const ctaHaut = document.querySelector('.cta-hero');
+  if (ctaHaut) ctaHaut.addEventListener('click', () => compter('bouton_haut'));
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver(entrees => {
+      if (entrees.some(en => en.isIntersecting)) { compter('formulaire_vu'); obs.disconnect(); }
+    }, { threshold: 0.3 });
+    obs.observe(form);
+  }
+  form.addEventListener('focusin', () => compter('formulaire_commence'));
+
+  // Téléphone : toutes les écritures courantes passent (06 12…, +33 6…, 0033…,
+  // +33 (0)6…, points, tirets, espaces en trop) et partent sous forme compacte.
+  const telCompact = s => s.replace(/\(0\)/g, '').replace(/[\s.\-()]/g, '').replace(/^0033/, '+33');
+  const telValide = s => /^(0[1-9]\d{8}|\+33[1-9]\d{8})$/.test(telCompact(s));
+  const cpCompact = s => s.replace(/\s/g, '');
+
+  const MESSAGES = {
+    nom: 'Indiquez votre nom.',
+    telephone: 'Numéro attendu : 06 12 34 56 78.',
+    email: 'Adresse email invalide. Vous pouvez aussi laisser ce champ vide.',
+    code_postal: 'Code postal de l\'Essonne attendu, par exemple 91000.',
+    commune: 'Choisissez votre commune.',
+    type_travaux: 'Choisissez votre projet.'
+  };
+  const nomChamp = ch => ch.dataset.champ || ch.name;
+
+  // Message d'erreur écrit sous le champ, effacé dès que la saisie est bonne.
+  const signaler = (ch, message) => {
+    let p = ch.parentElement.querySelector('.erreur-champ');
+    if (!message) {
+      ch.removeAttribute('aria-invalid');
+      ch.removeAttribute('aria-describedby');
+      if (p) p.remove();
+      return;
+    }
+    if (!p) {
+      p = document.createElement('p');
+      p.className = 'erreur-champ';
+      p.id = 'erreur-' + ch.id;
+      ch.insertAdjacentElement('afterend', p);
+    }
+    p.textContent = message;
+    ch.setAttribute('aria-invalid', 'true');
+    ch.setAttribute('aria-describedby', p.id);
+  };
+  const valider = ch => {
+    const nom = nomChamp(ch);
+    if (nom === 'telephone') ch.setCustomValidity(telValide(ch.value) ? '' : 'telephone');
+    if (nom === 'code_postal') ch.setCustomValidity(/^91\d{3}$/.test(cpCompact(ch.value)) ? '' : 'code_postal');
+    if (nom === 'nom' || ch.id === 'communeSaisie') ch.setCustomValidity(ch.value.trim() ? '' : 'vide');
+    if (nom === 'email') ch.setCustomValidity(!ch.value.trim() || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(ch.value.trim()) ? '' : 'email');
+    return ch.checkValidity();
+  };
+  const revalider = e => { const ch = e.target; if (ch.getAttribute('aria-invalid') && valider(ch)) signaler(ch, ''); };
+  form.addEventListener('input', revalider);
+  form.addEventListener('change', revalider);
+
+  // Commune déduite du code postal (API Découpage administratif de l'État) :
+  // une seule commune, rien à saisir ; plusieurs, une liste ; API muette, un
+  // champ libre. Le relais retrouve la commune s'il la reçoit vide.
+  const cp = form.elements.code_postal;
+  const champCommune = document.getElementById('champCommune');
+  const listeCommunes = document.getElementById('communeChoix');
+  const communeLibre = document.getElementById('communeSaisie');
+  const commune = document.getElementById('commune');
+  const trouvee = document.getElementById('communeTrouvee');
+  let cpCherche = '';
+  let recherche = Promise.resolve();
+  const montrer = mode => {
+    champCommune.hidden = !mode;
+    listeCommunes.hidden = mode !== 'listeCommunes';
+    listeCommunes.disabled = mode !== 'listeCommunes';
+    communeLibre.hidden = mode !== 'communeLibre';
+    communeLibre.disabled = mode !== 'communeLibre';
+    signaler(listeCommunes, '');
+    signaler(communeLibre, '');
+  };
+  const majCommune = () => {
+    const code = cpCompact(cp.value);
+    if (code === cpCherche) return recherche;
+    cpCherche = code;
+    commune.value = '';
+    trouvee.hidden = true;
+    montrer('');
+    if (!/^91\d{3}$/.test(code)) return (recherche = Promise.resolve());
+    const arret = new AbortController();
+    const minuteur = setTimeout(() => arret.abort(), 4000);
+    recherche = fetch('https://geo.api.gouv.fr/communes?codePostal=' + code + '&fields=nom&format=json', { signal: arret.signal })
+      .then(r => (r.ok ? r.json() : Promise.reject(r.status)))
+      .then(liste => liste.map(c => c.nom).sort((a, b) => a.localeCompare(b, 'fr')))
+      .catch(() => null)
+      .then(noms => {
+        clearTimeout(minuteur);
+        if (code !== cpCherche) return;
+        if (noms && noms.length === 1) {
+          commune.value = noms[0];
+          trouvee.textContent = '✓ ' + noms[0];
+          trouvee.hidden = false;
+        } else if (noms && noms.length > 1) {
+          listeCommunes.length = 0;
+          listeCommunes.add(new Option('Choisissez votre commune', ''));
+          noms.forEach(n => listeCommunes.add(new Option(n)));
+          montrer('listeCommunes');
+        } else {
+          communeLibre.value = '';
+          montrer('communeLibre');
+        }
+      })
+      .catch(() => { if (code === cpCherche) { communeLibre.value = ''; montrer('communeLibre'); } });
+    return recherche;
+  };
+  cp.addEventListener('input', majCommune);
+  cp.addEventListener('change', majCommune);
+  listeCommunes.addEventListener('change', () => { commune.value = listeCommunes.value; });
+  communeLibre.addEventListener('input', () => { commune.value = communeLibre.value.trim(); });
+
+  let envoiEnCours = false;
   form.addEventListener('submit', async e => {
     e.preventDefault();
+    if (envoiEnCours) return;
+    envoiEnCours = true;
+    bouton.disabled = true;
     erreur.hidden = true;
-    let ok = true;
-    form.querySelectorAll('input:not(#website), textarea, select').forEach(ch => {
-      const valide = ch.checkValidity();
-      ch.style.borderColor = valide ? '' : '#d14343';
-      if (!valide && ok) { ch.focus(); ok = false; }
+    await majCommune();
+    let premier = null;
+    form.querySelectorAll('input:not(#website):not([type="hidden"]), textarea, select').forEach(ch => {
+      if (ch.disabled) return;
+      const ok = valider(ch);
+      signaler(ch, ok ? '' : MESSAGES[nomChamp(ch)] || 'Champ à compléter.');
+      if (!ok) {
+        compter('refus_' + nomChamp(ch));
+        if (!premier) premier = ch;
+      }
     });
-    if (!ok) return;
+    if (premier) {
+      envoiEnCours = false;
+      bouton.disabled = false;
+      premier.focus();
+      return;
+    }
+    compter('envoi');
 
     const v = name => form.elements[name].value.trim();
     const demande = {
-      lead_form: 'couvreur-essonne',
-      name: v('nom'), phone: v('telephone'), email: v('email'),
-      address: v('adresse'), commune: v('commune'), postal_code: v('code_postal'),
-      work_type: v('type_travaux'), surface: v('surface'), delai: v('delai'), message: v('travaux'),
+      lead_form: LEAD_FORM,
+      name: v('nom'), phone: telCompact(v('telephone')), email: v('email'),
+      address: v('adresse'), commune: commune.value, postal_code: cpCompact(v('code_postal')),
+      work_type: v('type_travaux'), surface: v('surface'), delai: v('delai'),
+      message: v('travaux'),
       website: v('website'), page: location.pathname, gclid: lireGclid()
     };
 
-    bouton.disabled = true;
     bouton.textContent = 'Envoi en cours…';
     try {
       const r = await fetch(ENDPOINT, {
@@ -617,14 +773,19 @@
       });
       if (!r.ok) throw new Error(r.status);
       const reponse = await r.json().catch(() => ({}));
+      compter('envoi_ok');
       form.style.display = 'none';
-      document.getElementById('merci').style.display = 'block';
+      const merci = document.getElementById('merci');
+      merci.style.display = 'block';
+      merci.scrollIntoView({ block: 'center' });
       // Conversion Google Ads, uniquement si le visiteur a accepté les cookies.
       // Le numéro du lead sert de transaction_id : Google ne compte jamais deux
       // fois la même demande.
       if (baliseChargee) gtag('event', 'conversion', { send_to: CONVERSION_DEVIS, value: 1.0, currency: 'EUR', transaction_id: reponse.id || '' });
     } catch (err) {
+      compter('envoi_erreur');
       erreur.hidden = false;
+      envoiEnCours = false;
       bouton.disabled = false;
       bouton.textContent = 'Demander mon devis gratuit';
     }
