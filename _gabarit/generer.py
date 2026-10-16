@@ -13,6 +13,10 @@ dossier n'est pas publié.
 from pathlib import Path
 
 RACINE = Path(__file__).resolve().parent.parent
+
+# Libellé de la conversion Google Ads « Clic téléphone site » (type « Clics sur
+# votre numéro sur votre site Web mobile »), commun aux deux sites.
+LIBELLE_APPEL = "jnZbCI6m0Z4dEOvMiPdE"
 GABARIT = (RACINE / "_gabarit" / "page.html").read_text(encoding="utf-8")
 
 # Réponse commune à toutes les pages : qui rappelle le visiteur.
@@ -26,24 +30,25 @@ QUI_RAPPELLE = (
 PAGES = [
     {
         "chemin": "/",
-        "lien": "Réfection de toiture",
-        "titre": "Réfection et rénovation de toiture en Essonne | Couvreur Essonne",
-        "description": "Réfection complète et rénovation de toiture dans toute l'Essonne (91). Un couvreur local passe voir votre toit et vous remet un devis gratuit.",
-        "h1": 'Réfection et rénovation de toiture <span class="accent">en Essonne</span>',
-        "sous_titre": "Tuiles poreuses, toiture qui a fait son temps, charpente fatiguée. Décrivez votre projet : un couvreur de votre secteur vous rappelle et passe chiffrer gratuitement.",
-        "titre_form": "Demandez votre devis de réfection",
-        "type_defaut": "Réfection complète de toiture",
-        "exemple_projet": "Ex. : pavillon de 1975, tuiles d'origine poreuses, nous voulons refaire toute la toiture avant l'hiver…",
-        "titre_faq": "Réfection de toiture : vos questions",
+        "lien": "Tous travaux de toiture",
+        "titre": "Couvreur en Essonne : fuite, réparation et rénovation de toiture | Couvreur Essonne",
+        "description": "Fuite, tuiles cassées, faîtage, zinguerie, rénovation de toiture dans toute l'Essonne (91). Un couvreur local vous rappelle dans la journée. Devis gratuit.",
+        "h1": 'Fuite, réparation et rénovation de toiture <span class="accent">en Essonne</span>',
+        "sous_titre": "Fuite, tuiles cassées, faîtage descellé, gouttière percée : un couvreur de votre secteur vous rappelle dans la journée. Toiture à refaire ? Il passe aussi chiffrer la rénovation, gratuitement.",
+        "titre_form": "Être rappelé dans la journée",
+        "exemple_projet": "Ex. : tuiles déplacées après le coup de vent, gouttière qui déborde…",
+        "titre_faq": "Réparation de toiture : vos questions",
         "faq": [
-            ("Comment savoir s'il faut refaire ma toiture ou seulement la réparer ?",
-             "Tuiles poreuses ou qui se délitent, fuites à répétition, mousse incrustée, toiture de plus de 40 ans : ce sont les signes d'une couverture en fin de vie. Le couvreur monte sur le toit, vous montre l'état en photo et vous dit franchement si une réparation suffit."),
-            ("Combien coûte une réfection de toiture en Essonne ?",
-             "Le prix dépend de la surface, du matériau (tuile, ardoise), de l'accès et de l'état de la charpente. Seul un devis après visite donne un chiffre fiable. La visite et le devis sont gratuits et sans engagement."),
-            ("Combien de temps durent les travaux ?",
-             "Pour un pavillon, comptez en général une à deux semaines selon la surface et la météo. Le couvreur bâche la toiture pendant le chantier et évacue les gravats à la fin."),
-            ("La réfection est-elle couverte par une assurance ?",
-             "Oui. Le couvreur partenaire a une assurance décennale et une RC Pro : il vous remet ses attestations avec le devis, avant le début du chantier."),
+            ("Le couvreur se déplace-t-il pour une petite réparation ?",
+             "Oui. Une tuile cassée, un faîtage à resceller ou une gouttière qui fuit : il prend tous les travaux, pas seulement les grosses rénovations."),
+            ("Sous quel délai suis-je rappelé ?",
+             "Dans la journée. Pour une fuite active, appelez directement le 06 58 68 33 72."),
+            ("Réparer ou refaire ma toiture ?",
+             "Une fuite isolée ou quelques tuiles se réparent. Tuiles poreuses, fuites à répétition, toiture de plus de 40 ans : la rénovation devient plus rentable. Le couvreur monte sur le toit et vous le dit franchement, photos à l'appui."),
+            ("Le devis est-il gratuit ?",
+             "Oui. La visite et le devis sont gratuits et sans engagement : vous ne payez rien si vous refusez."),
+            ("Le couvreur est-il assuré ?",
+             "Oui. Le couvreur partenaire a une assurance décennale et une RC Pro : il vous remet ses attestations avec le devis, avant le début des travaux."),
             QUI_RAPPELLE,
         ],
     },
@@ -51,11 +56,10 @@ PAGES = [
         "chemin": "/couvreur-essonne/",
         "lien": "Couvreur en Essonne",
         "titre": "Couvreur en Essonne (91) : devis gratuit | Couvreur Essonne",
-        "description": "Un couvreur installé dans le 91 pour vos travaux de toiture : réfection, charpente, zinguerie. Visite et devis gratuits partout en Essonne.",
+        "description": "Un couvreur installé dans le 91 pour tous vos travaux de toiture : fuite, réparation, zinguerie, rénovation. Rappel dans la journée, devis gratuit.",
         "h1": 'Un couvreur <span class="accent">en Essonne</span>, près de chez vous',
-        "sous_titre": "Réfection, rénovation, charpente, zinguerie. Un couvreur installé dans le 91 vous rappelle, passe voir votre toiture et vous remet un devis gratuit.",
+        "sous_titre": "Fuite, réparation, zinguerie, rénovation : tous les travaux de toiture. Un couvreur installé dans le 91 vous rappelle dans la journée et vous remet un devis gratuit.",
         "titre_form": "Demandez votre devis gratuit",
-        "type_defaut": "",
         "exemple_projet": "Ex. : maison à Brétigny, tuiles déplacées après le dernier coup de vent, nous voulons un devis…",
         "titre_faq": "Trouver un couvreur en Essonne : vos questions",
         "faq": [
@@ -66,7 +70,7 @@ PAGES = [
             ("Le devis est-il vraiment gratuit ?",
              "Oui. La visite et le devis sont gratuits et sans engagement : vous ne payez rien si vous refusez."),
             ("Sous quel délai suis-je rappelé ?",
-             "Un couvreur vous rappelle sous 24 h ouvrées pour convenir d'une visite."),
+             "Un couvreur vous rappelle dans la journée pour convenir d'une visite."),
             QUI_RAPPELLE,
         ],
     },
@@ -74,11 +78,10 @@ PAGES = [
         "chemin": "/reparation-fuite-toiture/",
         "lien": "Fuite et réparation de toiture",
         "titre": "Fuite et réparation de toiture en Essonne | Couvreur Essonne",
-        "description": "Fuite de toit, infiltration, faîtage ou solin abîmé en Essonne (91) : un couvreur local recherche l'origine de la fuite et vous remet un devis gratuit.",
+        "description": "Fuite de toit, infiltration, tuiles cassées, faîtage ou solin abîmé en Essonne (91) : un couvreur local vous rappelle dans la journée. Devis gratuit.",
         "h1": 'Fuite et réparation de toiture <span class="accent">en Essonne</span>',
-        "sous_titre": "Infiltration au plafond, tuiles cassées, faîtage ou solin abîmé. Un couvreur de votre secteur vous rappelle, cherche l'origine de la fuite et vous dit s'il faut réparer ou refaire.",
+        "sous_titre": "Infiltration au plafond, tuiles cassées, faîtage ou solin abîmé. Un couvreur de votre secteur vous rappelle dans la journée, cherche l'origine de la fuite et la répare.",
         "titre_form": "Demandez votre devis de réparation",
-        "type_defaut": "Réparation, faîtage ou fuite",
         "exemple_projet": "Ex. : tache d'humidité au plafond de la chambre depuis les pluies, tuiles déplacées près de la cheminée…",
         "titre_faq": "Fuite de toiture : vos questions",
         "faq": [
@@ -101,7 +104,6 @@ PAGES = [
         "h1": 'Rénovation de charpente <span class="accent">en Essonne</span>',
         "sous_titre": "Bois attaqué par les insectes ou l'humidité, pièces qui fléchissent, toiture qui s'affaisse. Un couvreur-charpentier de votre secteur vous rappelle et passe chiffrer gratuitement.",
         "titre_form": "Demandez votre devis de charpente",
-        "type_defaut": "Rénovation de charpente",
         "exemple_projet": "Ex. : maison ancienne, chevrons qui fléchissent, le faîtage fait une bosse, nous voulons un diagnostic…",
         "titre_faq": "Charpente : vos questions",
         "faq": [
@@ -118,15 +120,14 @@ PAGES = [
     },
     {
         "chemin": "/devis-toiture/",
-        "lien": "Devis toiture gratuit",
-        "titre": "Devis toiture gratuit en Essonne (91) | Couvreur Essonne",
-        "description": "Devis toiture gratuit et sans engagement en Essonne : réfection, rénovation, charpente, zinguerie. Un couvreur local passe voir votre toit.",
-        "h1": 'Devis toiture gratuit <span class="accent">en Essonne</span>',
-        "sous_titre": "Réfection, rénovation, charpente ou zinguerie. Décrivez votre projet en 1 minute : un couvreur de votre secteur vous rappelle, visite votre toiture et vous remet un devis détaillé.",
-        "titre_form": "Recevez votre devis toiture",
-        "type_defaut": "",
-        "exemple_projet": "Ex. : toiture en tuiles mécaniques de 120 m², nous voulons comparer réfection complète et rénovation partielle…",
-        "titre_faq": "Devis toiture : vos questions",
+        "lien": "Rénovation de toiture",
+        "titre": "Rénovation de toiture en Essonne : devis gratuit | Couvreur Essonne",
+        "description": "Rénovation, réfection ou démoussage de toiture en Essonne (91) : un couvreur local passe voir votre toit et vous remet un devis gratuit et détaillé.",
+        "h1": 'Rénovation de toiture <span class="accent">en Essonne</span>',
+        "sous_titre": "Tuiles poreuses, mousse, fuites à répétition : un couvreur de votre secteur vous rappelle dans la journée, passe voir la toiture et vous dit s'il faut réparer ou refaire.",
+        "titre_form": "Demandez votre devis de rénovation",
+        "exemple_projet": "Ex. : toiture des années 70, tuiles poreuses, on hésite entre démoussage et réfection…",
+        "titre_faq": "Rénovation et devis toiture : vos questions",
         "faq": [
             ("Que contient le devis ?",
              "Chaque poste chiffré après visite : dépose, charpente, écran sous-toiture, liteaunage, couverture, zinguerie, échafaudage et évacuation des gravats. Vous savez exactement ce que vous payez."),
@@ -135,7 +136,7 @@ PAGES = [
             ("Pourquoi une visite avant le devis ?",
              "Une toiture ne se chiffre pas sur photo : l'état de la charpente, l'accès et les points singuliers (cheminée, noues, fenêtres de toit) changent le prix. La visite évite les mauvaises surprises en cours de chantier."),
             ("Sous quel délai ai-je mon devis ?",
-             "Un couvreur vous rappelle sous 24 h ouvrées pour fixer la visite, puis vous envoie le devis écrit."),
+             "Un couvreur vous rappelle dans la journée pour fixer la visite, puis vous envoie le devis écrit."),
             QUI_RAPPELLE,
         ],
     },
@@ -158,7 +159,7 @@ def liens_html(page):
 
 def generer(page):
     html = GABARIT
-    valeurs = dict(page, faq=faq_html(page["faq"]), autres_pages=liens_html(page))
+    valeurs = dict(page, faq=faq_html(page["faq"]), autres_pages=liens_html(page), libelle_appel=LIBELLE_APPEL)
     for cle, valeur in valeurs.items():
         if isinstance(valeur, str):
             html = html.replace("{{" + cle + "}}", valeur)

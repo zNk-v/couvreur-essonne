@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Couvreur en Essonne (91) : devis gratuit | Couvreur Essonne</title>
-<meta name="description" content="Un couvreur installé dans le 91 pour vos travaux de toiture : réfection, charpente, zinguerie. Visite et devis gratuits partout en Essonne.">
+<meta name="description" content="Un couvreur installé dans le 91 pour tous vos travaux de toiture : fuite, réparation, zinguerie, rénovation. Rappel dans la journée, devis gratuit.">
 <link rel="canonical" href="https://couvreur-en-essonne.fr/couvreur-essonne/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,6 +43,20 @@
   nav a { text-decoration: none; color: var(--texte); white-space: nowrap; }
   .logo span { white-space: nowrap; }
   nav a:hover { color: var(--tuile); }
+  .tel-header { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: var(--tuile); text-decoration: none; white-space: nowrap; }
+  .tel-header svg, .tel-hero svg, .barre-appel svg { width: 18px; height: 18px; flex: none; }
+
+  /* Téléphone dans le hero, et barre d'appel fixe sur mobile */
+  .actions-hero { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 36px; }
+  .tel-hero { display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-weight: 700; font-size: 16px; color: var(--blanc); text-decoration: none; border: 2px solid rgba(255,255,255,.35); border-radius: 10px; padding: 14px 20px; }
+  .tel-hero:hover { border-color: var(--tuile-vive); }
+  .tel-hero b { font-weight: 800; letter-spacing: .01em; }
+  .barre-appel { display: none; }
+  @media (max-width: 767.98px) {
+    .barre-appel { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 16px calc(14px + env(safe-area-inset-bottom)); background: linear-gradient(180deg, #bf5a31, #a3461f); color: var(--blanc); font-weight: 800; font-size: 17px; text-decoration: none; box-shadow: 0 -6px 20px rgba(0,0,0,.25); transition: transform .2s; }
+    .barre-appel.cachee { transform: translateY(110%); }
+    body { padding-bottom: calc(60px + env(safe-area-inset-bottom)); }
+  }
 
   /* Hero */
   .hero { color: var(--blanc); padding: 64px 0 80px; }
@@ -62,7 +76,7 @@
   h1 { font-size: clamp(34px, 4.4vw, 52px); line-height: 1.12; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 20px; }
   h1 .accent { color: var(--tuile-vive); }
   .sous-titre { font-size: 18px; color: #c5ccd2; max-width: 560px; margin-bottom: 24px; }
-  .atouts { display: flex; flex-wrap: wrap; gap: 22px; font-size: 14px; color: #c5ccd2; margin-bottom: 36px; list-style: none; }
+  .atouts { display: flex; flex-wrap: wrap; gap: 22px; font-size: 14px; color: #c5ccd2; margin-bottom: 28px; list-style: none; }
   .atouts li { display: flex; align-items: center; gap: 8px; }
   .atouts svg { width: 18px; height: 18px; stroke: var(--tuile-vive); }
 
@@ -101,18 +115,14 @@
   button[type="submit"], .bouton-principal { width: 100%; font: inherit; font-weight: 700; font-size: 16px; color: var(--blanc); background: linear-gradient(180deg, #bf5a31, #a3461f); border: 0; border-radius: 10px; padding: 16px; cursor: pointer; margin-top: 4px; transition: transform .1s, filter .15s; }
   button[type="submit"]:hover, .bouton-principal:hover { filter: brightness(1.08); }
   button[type="submit"]:active, .bouton-principal:active { transform: translateY(1px); }
-  .progression { font-size: 13px; color: var(--gris); margin-bottom: 8px; }
-  .progression b { color: var(--tuile); }
-  .barre { height: 4px; background: var(--bord); border-radius: 4px; margin-bottom: 20px; overflow: hidden; }
-  .barre span { display: block; height: 100%; width: 50%; background: var(--tuile); border-radius: 4px; transition: width .25s; }
   .label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
   .choix-boutons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
   .choix-boutons label { display: flex; align-items: center; justify-content: center; gap: 6px; margin: 0; font-size: 14px; font-weight: 600; border: 1px solid var(--bord); border-radius: 10px; padding: 11px 6px; background: #fbfbfc; cursor: pointer; text-align: center; }
   .choix-boutons input { width: auto; accent-color: var(--tuile); }
   .choix-boutons label:has(input:checked) { border-color: var(--tuile); background: var(--tuile-clair); color: var(--tuile); }
   .choix-boutons label:has(input:focus-visible) { box-shadow: 0 0 0 3px rgba(180,81,42,.25); }
-  .retour { background: none; border: 0; font: inherit; font-size: 14px; font-weight: 600; color: var(--tuile); cursor: pointer; padding: 0; margin-bottom: 10px; }
-  .recap { font-size: 13px; color: var(--gris); background: #f6f7f8; border-radius: 8px; padding: 10px 12px; margin-bottom: 16px; }
+  .choix-boutons.types input { position: absolute; opacity: 0; pointer-events: none; }
+  .commune-hors { color: var(--gris); }
   .consentement label { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; font-weight: 500; color: var(--texte); line-height: 1.45; cursor: pointer; }
   .consentement input { width: 18px; height: 18px; flex: none; margin-top: 2px; accent-color: var(--tuile); }
 
@@ -202,10 +212,11 @@
 
   .cta-hero { display: none; }
   @media (max-width: 960px) {
-    .cta-hero { display: block; margin-top: 24px; text-align: center; font-weight: 700; font-size: 16px; color: var(--blanc); background: linear-gradient(180deg, #bf5a31, #a3461f); border-radius: 10px; padding: 16px; text-decoration: none; }
+    .cta-hero { display: block; flex: 1 1 100%; text-align: center; font-weight: 700; font-size: 16px; color: var(--blanc); background: linear-gradient(180deg, #bf5a31, #a3461f); border-radius: 10px; padding: 16px; text-decoration: none; }
+    .tel-hero { flex: 1 1 100%; }
+    .actions-hero { margin-bottom: 0; }
     /* Mobile : texte, puis formulaire, puis photo */
     .hero .wrap { grid-template-columns: 1fr; grid-template-areas: "texte" "carte" "photo"; gap: 32px; }
-    .atouts { margin-bottom: 0; }
     .carte { position: static; }
     .etapes, .prestations { grid-template-columns: 1fr; }
     .confiance ul { grid-template-columns: 1fr 1fr; }
@@ -221,8 +232,11 @@
     header .wrap { flex-direction: column; justify-content: center; height: auto; padding-top: 14px; padding-bottom: 14px; gap: 8px; }
     nav { gap: 18px; font-size: 14px; }
   }
-  @media (max-width: 840px) {
-    nav a[href="#prestations"], nav a[href="#garanties"] { display: none; }
+  @media (max-width: 1080px) {
+    nav a[href="#garanties"] { display: none; }
+  }
+  @media (max-width: 900px) {
+    nav a[href="#prestations"], nav a[href="#zones"] { display: none; }
   }
   @media (max-width: 520px) {
     .wrap { padding: 0 16px; }
@@ -253,6 +267,7 @@
       <a href="#garanties">Assurances</a>
       <a href="#zones">Zones d'intervention</a>
       <a href="#fonctionnement">Comment ça marche</a>
+      <a class="tel-header" href="tel:+33658683372"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>06 58 68 33 72</a>
     </nav>
   </div>
 </header>
@@ -278,14 +293,17 @@
         </div>
 
         <h1>Un couvreur <span class="accent">en Essonne</span>, près de chez vous</h1>
-        <p class="sous-titre">Réfection, rénovation, charpente, zinguerie. Un couvreur installé dans le 91 vous rappelle, passe voir votre toiture et vous remet un devis gratuit.</p>
+        <p class="sous-titre">Fuite, réparation, zinguerie, rénovation : tous les travaux de toiture. Un couvreur installé dans le 91 vous rappelle dans la journée et vous remet un devis gratuit.</p>
 
         <ul class="atouts">
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Devis gratuit</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Visite technique sur place</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Couvreur local expérimenté</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Rappel dans la journée</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Tous travaux, même petits</li>
         </ul>
-        <a class="cta-hero" href="#devis">Demander mon devis gratuit</a>
+        <div class="actions-hero">
+          <a class="tel-hero" href="tel:+33658683372"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>Appelez le <b>06 58 68 33 72</b></span></a>
+          <a class="cta-hero" href="#devis">Demander mon devis gratuit</a>
+        </div>
       </div>
 
       <!-- Avant / après : déposez avant.jpg et apres.jpg (même toiture, même angle) à côté de ce fichier -->
@@ -294,126 +312,67 @@
           <div class="img avant" style="background-image:url('/avant.jpg')"><div class="placeholder">Photo « avant »<br>(avant.jpg)</div></div>
           <span class="badge g">Avant</span>
           <span class="badge d">Après</span>
-          <span class="badge illu">Images générées par IA</span>
+          <span class="badge illu">Photos d'illustration</span>
           <div class="poignee" role="slider" aria-label="Comparer avant et après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0"></div>
       </div>
 
       <aside class="carte" id="devis">
         <form id="formDevis" novalidate onsubmit="return false">
           <h2>Demandez votre devis gratuit</h2>
-          <span class="pastille">Rappel sous 24 h ouvrées</span>
-          <p class="progression" id="progression">Étape <b id="numEtape">1</b> sur 2 · <span id="nomEtape">votre projet</span></p>
-          <div class="barre" aria-hidden="true"><span id="barreEtape"></span></div>
+          <span class="pastille">Rappel dans la journée</span>
+          <p class="intro">Laissez votre numéro : un couvreur de votre secteur vous rappelle. Pressé ? Appelez le <a href="tel:+33658683372">06 58 68 33 72</a>.</p>
 
-          <!-- Étape 1 : le projet. Questions faciles d'abord, coordonnées ensuite
-               (formulaire en deux temps : plus de demandes envoyées). -->
-          <div class="etape-form" id="etape1">
-            <div class="champ">
-              <label for="type">Votre projet *</label>
-              <select id="type" name="type_travaux" required data-defaut="">
-                <option value="" selected disabled>Choisissez</option>
-                <option>Réfection complète de toiture</option>
-                <option>Rénovation partielle de toiture</option>
-                <option>Rénovation de charpente</option>
-                <option>Couverture neuve (construction, extension)</option>
-                <option>Zinguerie complète</option>
-                <option>Réparation, faîtage ou fuite</option>
-              </select>
+          <!-- Une seule étape. Obligatoires : nom, téléphone, code postal,
+               consentement. Le type de travaux est un raccourci facultatif. -->
+          <div class="champ">
+            <span class="label" id="lblType">Vos travaux <small>(facultatif)</small></span>
+            <div class="choix-boutons types" role="radiogroup" aria-labelledby="lblType">
+              <label><input type="radio" name="type_travaux" value="Fuite"> Fuite</label>
+              <label><input type="radio" name="type_travaux" value="Réparation"> Réparation</label>
+              <label><input type="radio" name="type_travaux" value="Zinguerie"> Zinguerie</label>
+              <label><input type="radio" name="type_travaux" value="Faîtage"> Faîtage</label>
+              <label><input type="radio" name="type_travaux" value="Rénovation"> Rénovation</label>
+              <label><input type="radio" name="type_travaux" value="Autre"> Autre</label>
             </div>
-
-            <div class="champ">
-              <span class="label" id="lblProprio">Vous êtes *</span>
-              <div class="choix-boutons" role="radiogroup" aria-labelledby="lblProprio">
-                <label><input type="radio" name="proprietaire" value="Propriétaire" required> Propriétaire</label>
-                <label><input type="radio" name="proprietaire" value="Locataire"> Locataire</label>
-                <label><input type="radio" name="proprietaire" value="Syndic ou gestionnaire"> Syndic</label>
-              </div>
-            </div>
-
-            <div class="ligne">
-              <div class="champ">
-                <label for="surface">Surface de toiture</label>
-                <select id="surface" name="surface">
-                  <option value="" selected>Je ne sais pas</option>
-                  <option>Moins de 50 m²</option>
-                  <option>50 à 100 m²</option>
-                  <option>100 à 150 m²</option>
-                  <option>Plus de 150 m²</option>
-                </select>
-              </div>
-              <div class="champ">
-                <label for="delai">Délai souhaité</label>
-                <select id="delai" name="delai">
-                  <option value="" selected>Pas encore défini</option>
-                  <option>Dès que possible</option>
-                  <option>D'ici 3 mois</option>
-                  <option>D'ici 6 mois</option>
-                  <option>Je compare des devis</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="champ">
-              <label for="cp">Code postal du chantier *</label>
-              <input id="cp" name="code_postal" placeholder="91000" required inputmode="numeric" maxlength="6" autocomplete="postal-code">
-              <p class="aide commune-ok" id="communeTrouvee" hidden></p>
-            </div>
-
-            <div class="champ" id="champCommune" hidden>
-              <label for="communeChoix">Commune *</label>
-              <select id="communeChoix" data-champ="commune" required disabled><option value="">Choisissez votre commune</option></select>
-              <input id="communeSaisie" data-champ="commune" placeholder="Évry-Courcouronnes" autocomplete="address-level2" required disabled hidden>
-            </div>
-            <input type="hidden" name="commune" id="commune">
-
-            <button type="button" class="bouton-principal" id="continuer">Continuer</button>
           </div>
 
-          <!-- Étape 2 : les coordonnées et le consentement au rappel -->
-          <div class="etape-form" id="etape2" hidden>
-            <button type="button" class="retour" id="retour">← Modifier mon projet</button>
-            <p class="recap" id="recap"></p>
-
-            <div class="ligne">
-              <div class="champ">
-                <label for="nom">Votre nom *</label>
-                <input id="nom" name="nom" placeholder="Marie Dupont" required autocomplete="name">
-              </div>
-              <div class="champ">
-                <label for="tel">Téléphone *</label>
-                <input id="tel" name="telephone" type="tel" placeholder="06 12 34 56 78" required autocomplete="tel">
-              </div>
-            </div>
-
+          <div class="ligne">
             <div class="champ">
-              <label for="email">Email <small>(facultatif, pour recevoir la confirmation)</small></label>
-              <input id="email" name="email" type="email" placeholder="marie@exemple.fr" autocomplete="email">
+              <label for="nom">Votre nom *</label>
+              <input id="nom" name="nom" placeholder="Marie Dupont" required autocomplete="name">
             </div>
-
             <div class="champ">
-              <label for="adresse">Adresse du chantier <small>(facultatif)</small></label>
-              <input id="adresse" name="adresse" placeholder="12 rue des Lilas" autocomplete="street-address">
+              <label for="tel">Téléphone *</label>
+              <input id="tel" name="telephone" type="tel" placeholder="06 12 34 56 78" required autocomplete="tel">
             </div>
-
-            <div class="champ">
-              <label for="travaux">Décrivez votre projet <small>(facultatif)</small></label>
-              <textarea id="travaux" name="travaux" placeholder="Ex. : maison à Brétigny, tuiles déplacées après le dernier coup de vent, nous voulons un devis…"></textarea>
-            </div>
-
-            <!-- Consentement au rappel : obligatoire depuis le 11 août 2026 (démarchage
-                 téléphonique en opt-in). Le texte exact part avec la demande pour garder
-                 la preuve. Changer CONSENTEMENT_VERSION si le texte change. -->
-            <div class="champ consentement">
-              <label><input type="checkbox" id="consentement" name="consentement" required>
-                <span id="texteConsentement">J'accepte que mes coordonnées soient transmises à un couvreur partenaire de l'Essonne, et qu'il me rappelle par téléphone au sujet de ma demande de devis.</span></label>
-            </div>
-
-            <!-- Pot de miel : invisible pour un humain, rempli par les robots -->
-            <div class="piege" aria-hidden="true"><label for="website">Site web</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
-
-            <button type="submit">Recevoir mon devis gratuit</button>
           </div>
-          <p class="erreur-envoi" id="erreurEnvoi" role="alert" hidden>L'envoi n'a pas abouti. Vérifiez votre connexion et réessayez, ou écrivez-nous à <a href="mailto:contact@sitaly.fr">contact@sitaly.fr</a>.</p>
+
+          <div class="champ">
+            <label for="cp">Code postal *</label>
+            <input id="cp" name="code_postal" placeholder="91000" required inputmode="numeric" maxlength="6" autocomplete="postal-code">
+            <p class="aide commune-ok" id="communeTrouvee" hidden></p>
+            <select id="communeChoix" aria-label="Commune (facultatif)" hidden><option value="">Votre commune (facultatif)</option></select>
+          </div>
+          <input type="hidden" name="commune" id="commune">
+
+          <div class="champ">
+            <label for="travaux">Précisions <small>(facultatif)</small></label>
+            <textarea id="travaux" name="travaux" rows="2" placeholder="Ex. : maison à Brétigny, tuiles déplacées après le dernier coup de vent, nous voulons un devis…"></textarea>
+          </div>
+
+          <!-- Consentement au rappel : obligatoire depuis le 11 août 2026 (démarchage
+               téléphonique en opt-in). Le texte exact part avec la demande pour garder
+               la preuve. Changer CONSENTEMENT_VERSION si le texte change. -->
+          <div class="champ consentement">
+            <label><input type="checkbox" id="consentement" name="consentement" required>
+              <span id="texteConsentement">J'accepte que mes coordonnées soient transmises à un couvreur partenaire de l'Essonne, et qu'il me rappelle par téléphone au sujet de ma demande de devis.</span></label>
+          </div>
+
+          <!-- Pot de miel : invisible pour un humain, rempli par les robots -->
+          <div class="piege" aria-hidden="true"><label for="website">Site web</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+
+          <button type="submit">Être rappelé gratuitement</button>
+          <p class="erreur-envoi" id="erreurEnvoi" role="alert" hidden>L'envoi n'a pas abouti. Réessayez, ou appelez directement le <a href="tel:+33658683372">06 58 68 33 72</a>.</p>
           <div class="carte-confiance">
             <img src="/garantie-decennale.svg" alt="Assurance décennale">
             <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Artisan assuré</span>
@@ -425,7 +384,7 @@
         <div class="merci" id="merci" role="status">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>
           <h3>Demande envoyée</h3>
-          <p>Merci ! Un couvreur vous rappelle sous 24 h ouvrées pour fixer la visite.</p>
+          <p>Merci ! Un couvreur vous rappelle dans la journée.</p>
         </div>
       </aside>
     </div>
@@ -437,7 +396,7 @@
         <li><img src="/garantie-decennale.svg" alt="Assurance décennale"><div><b>Assurance décennale</b>Attestation remise avec le devis</div></li>
         <li><span class="ico blanc"><svg width="24" height="24" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg></span><div><b>5/5 sur Google</b>18 avis, couvreur partenaire</div></li>
         <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M9 14l2 2 4-4"/></svg></span><div><b>Devis gratuit</b>Sans engagement</div></li>
-        <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><b>Rappel sous 24 h ouvrées</b>Pour fixer la visite</div></li>
+        <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><b>Rappel dans la journée</b>Par un couvreur du secteur</div></li>
         <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><div><b>Artisan du 91</b>Couvreur installé en Essonne</div></li>
       </ul>
     </div>
@@ -446,13 +405,14 @@
   <section class="claire" id="prestations">
     <div class="wrap">
       <h2 class="titre-section">Les travaux de notre couvreur partenaire</h2>
-      <p class="chapo">Des chantiers de toiture complets, sur pavillon comme sur maison ancienne.</p>
+      <p class="chapo">Petite réparation ou toiture à refaire : il prend tous les travaux, sur pavillon comme sur maison ancienne.</p>
       <ul class="prestations">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16M15 4v16"/></svg><h3>Réfection complète</h3><p>Dépose de l'ancienne couverture, liteaunage, écran sous-toiture et pose de tuiles ou d'ardoises neuves.</p></li>
-        <li id="charpente"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-8 9 8"/><path d="M7 9v11M17 9v11M7 14h10"/></svg><h3>Rénovation de charpente</h3><p>Remplacement des pièces abîmées, traitement du bois et remise à niveau avant la nouvelle couverture.</p></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-8 9 8"/><path d="M6 10v10h12V10"/><path d="M12 14v6"/></svg><h3>Couverture neuve</h3><p>Toiture de construction neuve, d'extension ou de surélévation, du choix des matériaux à la pose.</p></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18l-2 4H5z"/><path d="M17 10v10"/></svg><h3>Zinguerie complète</h3><p>Gouttières, descentes, noues, solins et habillages en zinc refaits avec la toiture.</p></li>
-        <li id="fuite"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.6 6 11a6 6 0 0 1-12 0c0-4.4 6-11 6-11z"/></svg><h3>Fuite et réparation</h3><p>Recherche de l'infiltration, reprise du faîtage et des solins : faut-il réparer ou refaire ? Le couvreur vous le dit franchement.</p></li>
+        <li id="fuite"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.6 6 11a6 6 0 0 1-12 0c0-4.4 6-11 6-11z"/></svg><h3>Fuite et infiltration</h3><p>Recherche de l'origine de la fuite et réparation, même pour une seule tuile.</p></li>
+        <li id="reparation"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16M15 4v16"/></svg><h3>Tuiles cassées ou déplacées</h3><p>Remplacement des tuiles et ardoises abîmées après un coup de vent ou une chute de branche.</p></li>
+        <li id="faitage"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-8 9 8"/><path d="M6 10v10h12V10"/></svg><h3>Faîtage et solins</h3><p>Faîtage descellé, solin de cheminée fissuré : reprise avant que l'eau n'entre.</p></li>
+        <li id="zinguerie"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18l-2 4H5z"/><path d="M17 10v10"/></svg><h3>Zinguerie et gouttières</h3><p>Gouttière percée, descente bouchée, chéneau ou noue à reprendre.</p></li>
+        <li id="renovation"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-8 9 8"/><path d="M6 10v10h12V10"/><path d="M12 14v6"/></svg><h3>Rénovation de toiture</h3><p>Démoussage, réfection partielle ou complète, quand la réparation ne suffit plus.</p></li>
+        <li id="charpente"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-8 9 8"/><path d="M7 9v11M17 9v11M7 14h10"/></svg><h3>Charpente</h3><p>Pièces abîmées remplacées ou renforcées, traitement du bois.</p></li>
       </ul>
     </div>
   </section>
@@ -482,10 +442,10 @@
   <section class="claire" id="fonctionnement">
     <div class="wrap">
       <h2 class="titre-section">Comment ça marche</h2>
-      <p class="chapo">Trois étapes entre votre demande et une toiture saine.</p>
+      <p class="chapo">Trois étapes entre votre appel et une toiture qui ne fuit plus.</p>
       <div class="etapes">
-        <div class="etape"><div class="num">1</div><h3>Vous décrivez vos travaux</h3><p>Remplissez le formulaire en une minute : type de travaux, surface, délai.</p></div>
-        <div class="etape"><div class="num">2</div><h3>Un couvreur vous rappelle</h3><p>Il passe voir la toiture et vous remet un devis gratuit et détaillé.</p></div>
+        <div class="etape"><div class="num">1</div><h3>Vous appelez ou laissez votre numéro</h3><p>Nom, téléphone et code postal suffisent. Le type de travaux est facultatif.</p></div>
+        <div class="etape"><div class="num">2</div><h3>Un couvreur vous rappelle</h3><p>Dans la journée. Il passe voir la toiture et vous remet un devis gratuit.</p></div>
         <div class="etape"><div class="num">3</div><h3>Il intervient</h3><p>Réparation ou réfection, puis nettoyage du chantier et évacuation des gravats.</p></div>
       </div>
     </div>
@@ -499,7 +459,7 @@
         <details><summary>Dans quelles communes le couvreur intervient-il ?</summary><p>Dans tout le département de l'Essonne (91) : Évry-Courcouronnes, Massy, Palaiseau, Brétigny-sur-Orge, Savigny-sur-Orge, Corbeil-Essonnes, Étampes et les communes alentour.</p></details>
         <details><summary>Comment choisir un bon couvreur ?</summary><p>Demandez l'attestation d'assurance décennale, un devis écrit et détaillé poste par poste, et des photos de votre toiture avant et après. Le couvreur partenaire fournit les trois.</p></details>
         <details><summary>Le devis est-il vraiment gratuit ?</summary><p>Oui. La visite et le devis sont gratuits et sans engagement : vous ne payez rien si vous refusez.</p></details>
-        <details><summary>Sous quel délai suis-je rappelé ?</summary><p>Un couvreur vous rappelle sous 24 h ouvrées pour convenir d'une visite.</p></details>
+        <details><summary>Sous quel délai suis-je rappelé ?</summary><p>Un couvreur vous rappelle dans la journée pour convenir d'une visite.</p></details>
         <details><summary>Qui va me rappeler ?</summary><p>Un couvreur partenaire installé en Essonne. Couvreur Essonne est un service gratuit de mise en relation édité par Sitaly : nous transmettons votre demande à un couvreur de votre secteur, qui nous rémunère pour ce service. Vous ne payez rien pour le devis.</p></details>
       </div>
     </div>
@@ -517,10 +477,10 @@
         <li>Les Ulis</li><li>Longjumeau</li><li>Montgeron</li><li>Dourdan</li>
       </ul>
       <ul class="autres-pages">
-        <li><a href="/">Réfection de toiture</a></li>
+        <li><a href="/">Tous travaux de toiture</a></li>
         <li><a href="/reparation-fuite-toiture/">Fuite et réparation de toiture</a></li>
         <li><a href="/charpente-essonne/">Rénovation de charpente</a></li>
-        <li><a href="/devis-toiture/">Devis toiture gratuit</a></li>
+        <li><a href="/devis-toiture/">Rénovation de toiture</a></li>
       </ul>
     </div>
   </section>
@@ -532,6 +492,10 @@
     <span><a href="/mentions-legales.html">Mentions légales</a> · <a href="/politique-confidentialite.html">Politique de confidentialité</a> · <a href="#" id="gererCookies">Gérer les cookies</a></span>
   </div>
 </footer>
+
+<!-- Mobile (< 768 px) : barre d'appel fixe. Elle s'efface quand le bouton
+     d'envoi du formulaire arrive en bas de l'écran ou qu'un champ a le focus. -->
+<a class="barre-appel" id="barreAppel" href="tel:+33658683372"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Appeler maintenant</a>
 
 <div class="cookies" id="cookies" role="dialog" aria-live="polite" aria-label="Cookies" hidden>
   <p><b>Cookies de mesure publicitaire.</b> Avec votre accord, nous utilisons des cookies Google Ads pour savoir quelles annonces amènent des demandes de devis. Rien n'est déposé si vous refusez. <a href="/politique-confidentialite.html#cookies">En savoir plus</a></p>
@@ -548,6 +512,9 @@
      redemandé. « Gérer les cookies » dans le pied de page rouvre le bandeau. */
   const GOOGLE_ADS_ID = 'AW-18503313003';
   const CONVERSION_DEVIS = 'AW-18503313003/wjYSCJq17pYdEOvMiPdE';
+  // « Clic téléphone site » : conversion « Clics sur votre numéro sur votre
+  // site Web mobile », envoyée à chaque clic sur un lien tel:.
+  const CONVERSION_APPEL = 'AW-18503313003/jnZbCI6m0Z4dEOvMiPdE';
   const CLE_CONSENTEMENT = 'cookieConsent';
   const MOIS = 30 * 24 * 3600 * 1000;
   let baliseChargee = false;
@@ -704,14 +671,10 @@
   const MESSAGES = {
     nom: 'Indiquez votre nom.',
     telephone: 'Numéro attendu : 06 12 34 56 78.',
-    email: 'Adresse email invalide. Vous pouvez aussi laisser ce champ vide.',
-    code_postal: 'Code postal de l\'Essonne attendu, par exemple 91000.',
-    commune: 'Choisissez votre commune.',
-    type_travaux: 'Choisissez votre projet.',
-    proprietaire: 'Indiquez si vous êtes propriétaire.',
+    code_postal: 'Code postal à 5 chiffres, par exemple 91000.',
     consentement: 'Cochez la case pour qu\'un couvreur puisse vous rappeler.'
   };
-  const nomChamp = ch => ch.dataset.champ || ch.name;
+  const nomChamp = ch => ch.name;
 
   // Message d'erreur écrit sous le champ, effacé dès que la saisie est bonne.
   // Case à cocher : le message va sous son libellé, pas dans le libellé.
@@ -728,7 +691,7 @@
       p = document.createElement('p');
       p.className = 'erreur-champ';
       p.id = 'erreur-' + ch.id;
-      ch.insertAdjacentElement('afterend', p);
+      ancre.insertAdjacentElement('afterend', p);
     }
     p.textContent = message;
     ch.setAttribute('aria-invalid', 'true');
@@ -737,149 +700,96 @@
   const valider = ch => {
     const nom = nomChamp(ch);
     if (nom === 'telephone') ch.setCustomValidity(telValide(ch.value) ? '' : 'telephone');
-    if (nom === 'code_postal') ch.setCustomValidity(/^91\d{3}$/.test(cpCompact(ch.value)) ? '' : 'code_postal');
-    if (nom === 'nom' || ch.id === 'communeSaisie') ch.setCustomValidity(ch.value.trim() ? '' : 'vide');
-    if (nom === 'email') ch.setCustomValidity(!ch.value.trim() || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(ch.value.trim()) ? '' : 'email');
+    if (nom === 'code_postal') ch.setCustomValidity(/^\d{5}$/.test(cpCompact(ch.value)) ? '' : 'code_postal');
+    if (nom === 'nom') ch.setCustomValidity(ch.value.trim() ? '' : 'vide');
     return ch.checkValidity();
   };
   const revalider = e => { const ch = e.target; if (ch.getAttribute('aria-invalid') && valider(ch)) signaler(ch, ''); };
   form.addEventListener('input', revalider);
   form.addEventListener('change', revalider);
+  form.querySelectorAll('input[name="type_travaux"]').forEach(r => r.addEventListener('change', () => compter('type_choisi')));
 
-  // Commune déduite du code postal (API Découpage administratif de l'État) :
-  // une seule commune, rien à saisir ; plusieurs, une liste ; API muette, un
-  // champ libre. Le relais retrouve la commune s'il la reçoit vide.
+  // Commune déduite du code postal (API Découpage administratif de l'État),
+  // jamais bloquante : une commune, on l'affiche ; plusieurs, une liste
+  // facultative ; API muette, rien (le relais la retrouve à la réception).
   const cp = form.elements.code_postal;
-  const champCommune = document.getElementById('champCommune');
   const listeCommunes = document.getElementById('communeChoix');
-  const communeLibre = document.getElementById('communeSaisie');
   const commune = document.getElementById('commune');
   const trouvee = document.getElementById('communeTrouvee');
   let cpCherche = '';
-  let recherche = Promise.resolve();
-  const montrer = mode => {
-    champCommune.hidden = !mode;
-    listeCommunes.hidden = mode !== 'listeCommunes';
-    listeCommunes.disabled = mode !== 'listeCommunes';
-    communeLibre.hidden = mode !== 'communeLibre';
-    communeLibre.disabled = mode !== 'communeLibre';
-    signaler(listeCommunes, '');
-    signaler(communeLibre, '');
-  };
   const majCommune = () => {
     const code = cpCompact(cp.value);
-    if (code === cpCherche) return recherche;
+    if (code === cpCherche) return;
     cpCherche = code;
     commune.value = '';
     trouvee.hidden = true;
-    montrer('');
-    if (!/^91\d{3}$/.test(code)) return (recherche = Promise.resolve());
+    trouvee.className = 'aide commune-ok';
+    listeCommunes.hidden = true;
+    if (!/^\d{5}$/.test(code)) return;
     const arret = new AbortController();
     const minuteur = setTimeout(() => arret.abort(), 4000);
-    recherche = fetch('https://geo.api.gouv.fr/communes?codePostal=' + code + '&fields=nom&format=json', { signal: arret.signal })
+    fetch('https://geo.api.gouv.fr/communes?codePostal=' + code + '&fields=nom&format=json', { signal: arret.signal })
       .then(r => (r.ok ? r.json() : Promise.reject(r.status)))
-      .then(liste => liste.map(c => c.nom).sort((a, b) => a.localeCompare(b, 'fr')))
-      .catch(() => null)
-      .then(noms => {
+      .then(liste => {
         clearTimeout(minuteur);
         if (code !== cpCherche) return;
-        if (noms && noms.length === 1) {
+        const noms = liste.map(c => c.nom).sort((a, b) => a.localeCompare(b, 'fr'));
+        const hors = !/^91/.test(code) ? ' · hors Essonne, nous transmettons quand même' : '';
+        if (noms.length === 1) {
           commune.value = noms[0];
-          trouvee.textContent = '✓ ' + noms[0];
-          trouvee.hidden = false;
-        } else if (noms && noms.length > 1) {
+          trouvee.textContent = '✓ ' + noms[0] + hors;
+        } else if (noms.length > 1) {
           listeCommunes.length = 0;
-          listeCommunes.add(new Option('Choisissez votre commune', ''));
+          listeCommunes.add(new Option('Votre commune (facultatif)', ''));
           noms.forEach(n => listeCommunes.add(new Option(n)));
-          montrer('listeCommunes');
-        } else {
-          communeLibre.value = '';
-          montrer('communeLibre');
-        }
+          listeCommunes.hidden = false;
+          trouvee.textContent = '✓ ' + noms.length + ' communes pour ce code postal' + hors;
+        } else return;
+        if (hors) trouvee.className = 'aide commune-hors';
+        trouvee.hidden = false;
       })
-      .catch(() => { if (code === cpCherche) { communeLibre.value = ''; montrer('communeLibre'); } });
-    return recherche;
+      .catch(() => clearTimeout(minuteur));
   };
   cp.addEventListener('input', majCommune);
-  cp.addEventListener('change', majCommune);
   listeCommunes.addEventListener('change', () => { commune.value = listeCommunes.value; });
-  communeLibre.addEventListener('input', () => { commune.value = communeLibre.value.trim(); });
 
-  // Projet présélectionné selon la page : l'annonce « charpente » arrive sur la
-  // page charpente avec « Rénovation de charpente » déjà choisi.
-  const typeSel = form.elements.type_travaux;
-  if (typeSel.dataset.defaut) [...typeSel.options].forEach(o => { if (o.text === typeSel.dataset.defaut) o.selected = true; });
+  // Barre d'appel mobile : cachée pendant la saisie et quand le bouton d'envoi
+  // est visible, pour ne jamais le recouvrir.
+  const barreAppel = document.getElementById('barreAppel');
+  let envoiVisible = false, saisie = false;
+  const majBarre = () => barreAppel.classList.toggle('cachee', envoiVisible || saisie);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([en]) => { envoiVisible = en.isIntersecting; majBarre(); }, { rootMargin: '0px 0px 80px 0px' }).observe(bouton);
+  }
+  form.addEventListener('focusin', e => { if (e.target.matches('input:not([type="radio"]):not([type="checkbox"]), textarea, select')) { saisie = true; majBarre(); } });
+  form.addEventListener('focusout', () => { saisie = false; majBarre(); });
 
-  // « Vous êtes » : trois boutons radio, le message d'erreur va sous le groupe.
-  const groupeProprio = document.querySelector('.choix-boutons');
-  groupeProprio.id = 'choixProprio';
-  const validerProprio = () => {
-    const ok = Boolean(form.elements.proprietaire.value);
-    signaler(groupeProprio, ok ? '' : MESSAGES.proprietaire);
-    return ok;
-  };
-  groupeProprio.addEventListener('change', () => { if (groupeProprio.getAttribute('aria-invalid')) validerProprio(); });
-
-  // Formulaire en deux étapes : le projet, puis les coordonnées.
-  const etape1 = document.getElementById('etape1');
-  const etape2 = document.getElementById('etape2');
-  const allerA = n => {
-    etape1.hidden = n !== 1;
-    etape2.hidden = n !== 2;
-    document.getElementById('numEtape').textContent = n;
-    document.getElementById('nomEtape').textContent = n === 1 ? 'votre projet' : 'vos coordonnées';
-    document.getElementById('barreEtape').style.width = n === 1 ? '50%' : '100%';
-  };
-  // Valide une liste de champs, signale les erreurs, renvoie le premier champ fautif.
-  const verifier = champs => {
-    let premier = null;
-    champs.forEach(ch => {
-      if (ch.disabled) return;
-      const ok = valider(ch);
-      signaler(ch, ok ? '' : MESSAGES[nomChamp(ch)] || 'Champ à compléter.');
-      if (!ok) {
-        compter('refus_' + nomChamp(ch));
-        if (!premier) premier = ch;
-      }
-    });
-    return premier;
-  };
-  const champsEtape1 = () => [typeSel, cp, listeCommunes, communeLibre];
-  const champsEtape2 = () => [...etape2.querySelectorAll('input:not(#website), textarea')];
-
-  document.getElementById('continuer').addEventListener('click', async () => {
-    await majCommune();
-    let premier = verifier(champsEtape1());
-    if (!validerProprio()) {
-      compter('refus_proprietaire');
-      if (!premier) premier = groupeProprio.querySelector('input');
-    }
-    if (premier) { premier.focus(); return; }
-    document.getElementById('recap').textContent =
-      [typeSel.value, form.elements.proprietaire.value.toLowerCase(), cpCompact(cp.value) + ' ' + commune.value].join(' · ');
-    allerA(2);
-    compter('etape_2');
-    form.elements.nom.focus();
+  // Clic sur un numéro (header, hero, barre mobile, formulaire) : compteur
+  // anonyme, et conversion Google Ads si le visiteur a accepté les cookies.
+  document.addEventListener('click', e => {
+    if (!e.target.closest('a[href^="tel:"]')) return;
+    compter('clic_tel');
+    if (baliseChargee) gtag('event', 'conversion', { send_to: CONVERSION_APPEL });
   });
-  document.getElementById('retour').addEventListener('click', () => { allerA(1); typeSel.focus(); });
 
   const CONSENTEMENT_VERSION = 'v1-2026-10-12';
 
   let envoiEnCours = false;
   form.addEventListener('submit', async e => {
     e.preventDefault();
-    // Touche Entrée pendant l'étape 1 : on passe à l'étape 2, on n'envoie pas.
-    if (etape2.hidden) { document.getElementById('continuer').click(); return; }
     if (envoiEnCours) return;
     envoiEnCours = true;
     bouton.disabled = true;
     erreur.hidden = true;
-    await majCommune();
-    // Étape 1 revérifiée au cas où : si elle pèche, on y retourne.
-    let premier = verifier(champsEtape1());
-    if (!validerProprio() && !premier) premier = groupeProprio.querySelector('input');
-    if (premier) allerA(1);
-    else premier = verifier(champsEtape2());
+    let premier = null;
+    [form.elements.nom, form.elements.telephone, cp, form.elements.consentement].forEach(ch => {
+      const ok = valider(ch);
+      signaler(ch, ok ? '' : MESSAGES[nomChamp(ch)]);
+      if (!ok) {
+        compter('refus_' + nomChamp(ch));
+        if (!premier) premier = ch;
+      }
+    });
     if (premier) {
       envoiEnCours = false;
       bouton.disabled = false;
@@ -888,14 +798,13 @@
     }
     compter('envoi');
 
-    const v = name => form.elements[name].value.trim();
+    const v = name => (form.elements[name].value || '').trim();
     const quand = new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' });
     const demande = {
       lead_form: LEAD_FORM,
-      name: v('nom'), phone: telCompact(v('telephone')), email: v('email'),
-      address: v('adresse'), commune: commune.value, postal_code: cpCompact(v('code_postal')),
-      work_type: v('type_travaux'), surface: v('surface'), delai: v('delai'),
-      owner: v('proprietaire'),
+      name: v('nom'), phone: telCompact(v('telephone')),
+      commune: commune.value, postal_code: cpCompact(v('code_postal')),
+      work_type: v('type_travaux'),
       // Preuve du consentement au rappel : date, version et texte exact affiché.
       consent: `Oui, le ${quand} (${CONSENTEMENT_VERSION}) : « ${document.getElementById('texteConsentement').textContent.trim()} »`,
       message: v('travaux'),
@@ -916,16 +825,16 @@
       const merci = document.getElementById('merci');
       merci.style.display = 'block';
       merci.scrollIntoView({ block: 'center' });
-      // Conversion Google Ads, uniquement si le visiteur a accepté les cookies.
-      // Le numéro du lead sert de transaction_id : Google ne compte jamais deux
-      // fois la même demande.
+      // Conversion Google Ads, uniquement après un envoi réussi et si le
+      // visiteur a accepté les cookies. Le numéro du lead sert de
+      // transaction_id : Google ne compte jamais deux fois la même demande.
       if (baliseChargee) gtag('event', 'conversion', { send_to: CONVERSION_DEVIS, value: 1.0, currency: 'EUR', transaction_id: reponse.id || '' });
     } catch (err) {
       compter('envoi_erreur');
       erreur.hidden = false;
       envoiEnCours = false;
       bouton.disabled = false;
-      bouton.textContent = 'Recevoir mon devis gratuit';
+      bouton.textContent = 'Être rappelé gratuitement';
     }
   });
 </script>
